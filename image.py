@@ -4,7 +4,7 @@ import cv2 as cv
 original_image = cv.imread('/home/ripudaman/Downloads/TestImage.jpg')
 
 # Convert color image to grayscale for Viola-Jones
-grayscale_image = cv.cvtColor(original_image, cv.COLOR_BGR2GRAY
+grayscale_image = cv.cvtColor(original_image, cv.COLOR_BGR2GRAY)
 
 # Load the classifier and create a cascade object for face detection
 face_cascade = cv.CascadeClassifier('/usr/local/lib/python3.6/dist-packages/cv2/data/haarcascade_frontalface_alt.xml')
