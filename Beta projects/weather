@@ -1,0 +1,9 @@
+#!/usr/bin/python3
+
+import requests
+
+url='http://api.openweathermap.org/data/2.5/weather'
+payload={"q":"halifax,ca","APPID":"771c7bc2ecd22237f069637f5c0eeef7"}
+resp=requests.get(url,params=payload)
+data=resp.json()
+print("Weather: ",data["weather"][0]["description"],"Temperature(in *C): ",data["main"]["temp"]-273.15,"Humidity: ",data["main"]["humidity"],"Minimum Temperature(in *C): ",data["main"]["temp_min"]-273.15,"Maximum Temperature(in *C): ",data["main"]["temp_max"]-273.15,sep='\n')

@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+import time
+from selenium import webdriver
+
+driver=webdriver.Firefox()
+driver.get("https://dal.brightspace.com/d2l/login?sessionExpired=0&target=%2fd2l%2fhome")
+driver.implicitly_wait(5)
+driver.find_element_by_xpath('//*[@id="userName"]').send_keys('rp215152')
+driver.find_element_by_xpath('//*[@id="password"]').send_keys('Chakva22')
+time.sleep(2)
+driver.find_element_by_xpath('//*[contains(@id, "d2l_1_5_")]').click()
+

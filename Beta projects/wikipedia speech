@@ -1,0 +1,76 @@
+#!/usr/bin/python3
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import sys
+from email.mime.base import MIMEBase
+from email import encoders
+import wikipedia
+import webbrowser
+import speech_recognition as sr
+import time
+
+
+def get_info():
+	while True:
+		try:
+			r=sr.Recognizer()
+			mic=sr.Microphone()
+			print("Please speak into the mic to search or say 'EXIT'")
+			with mic as source:
+        			r.adjust_for_ambient_noise(source)
+        			audio = r.listen(source)
+			key=r.recognize_google(audio)
+
+			time.sleep(2)
+
+			if key=='exit':
+				break
+			summ=wikipedia.summary(key)
+			pg=wikipedia.page(key)
+			link=pg.url
+			choice=input("Enter how you want to view data,'1' for Browser and '2' for email: ")
+			if choice=='1':
+				print("Please Check your browser for details")
+				webbrowser.open(link,new=2)
+			else:
+				with open('wiki-info.txt','w') as f:
+					print(summ,'\n'*3,'For more info visit the following url\n',link,file=f)
+				receiver=input("To: ")
+				sender='7ripudamankaushik7@gmail.com'
+				subject="Wikipedia-Info"
+
+				msg=MIMEMultipart()
+				msg['From']=sender
+				msg['To']=receiver
+				msg['Subject']=subject
+
+				body="Here's the info you requested"
+				msg.attach(MIMEText(body,'plain'))
+
+				filename='wiki-info.txt'
+				attachment=open(filename,'rb')
+				part=MIMEBase('application','octet-stream', Name=filename)
+				part.set_payload(attachment.read())
+				encoders.encode_base64(part)	
+				part.add_header('Content-Description',"attachment; filename= "+filename)
+				msg.attach(part)
+
+				text=msg.as_string()
+				server =smtplib.SMTP('smtp.gmail.com',587)
+				server.starttls()
+				server.login(sender,'kuchtahai')
+				server.sendmail(sender,receiver,text)
+				server.quit()
+
+		except wikipedia.exceptions.DisambiguationError as e:
+			print('\nOPTIONS:\n')
+			for i in e.options[:-1]:
+				print(i)
+			pass
+		except wikipedia.exceptions.PageError:
+			print('No such page found, please try another searchword')
+			pass
+
+get_info()

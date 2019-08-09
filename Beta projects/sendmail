@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import sys
+
+receiver=sys.argv[1]
+choice1='7ripudamankaushik7@gmail.com'
+choice2='johnmccandles26@gmail.com'
+choice=input(F"1:{choice1}\n 2:{choice2}\n From: ")
+if choice=='1':
+	sender=choice1
+elif choice=='2':
+	sender=choice2
+else:
+	sender=choice
+subject=input("Subject: ")
+
+msg=MIMEMultipart()
+msg['From']=sender
+msg['To']=receiver
+msg['Subject']=subject
+
+body=input('Message:\n')
+msg.attach(MIMEText(body,'plain'))
+text=msg.as_string()
+
+server =smtplib.SMTP('smtp.gmail.com',587)
+server.starttls()
+server.login(sender,'kuchtahai')
+server.sendmail(sender,receiver,text)
+server.quit()
