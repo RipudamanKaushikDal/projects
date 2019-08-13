@@ -27,13 +27,14 @@ data = pickle.loads(open(args["encodings"], "rb").read())
 # initialize the video stream and pointer to output video file, then
 # allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = cv2.VideoCapture(0)
+vs = VideoStream(src=0).start()
 writer = None
+time.sleep(2)
 
 # loop over frames from the video file stream
 while True:
 	# grab the frame from the threaded video stream
-	ret,frame = vs.read()
+	frame = vs.read()
 
 	# convert the input frame from BGR to RGB then resize it to have
 	# a width of 750px (to speedup processing)
@@ -95,7 +96,7 @@ while True:
 	# if the video writer is None *AND* we are supposed to write
 	# the output video to disk initialize the writer
 	if writer is None and args["output"] is not None:
-		fourcc = cv2.VideoWriter_fourcc(*"XVID")
+		fourcc = cv2.VideoWriter_fourcc(*"MJPG")
 		writer = cv2.VideoWriter(args["output"], fourcc, 20,
 			(frame.shape[1], frame.shape[0]), True)
 	
@@ -116,10 +117,8 @@ while True:
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
-vs.release()
+vs.stop()
  
 # check to see if the video writer point needs to be released
 if writer is not None:
 	writer.release()
-
-
