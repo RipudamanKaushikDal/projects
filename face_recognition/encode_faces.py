@@ -5,6 +5,7 @@ import argparse
 import pickle
 import cv2
 import os
+import imutils
 
 #construct the argument parser and parse the arguments
 ap= argparse.ArgumentParser()
@@ -28,9 +29,10 @@ for (i,imagePath) in enumerate(imagePaths):
 	name= imagePath.split(os.path.sep)[-2]
 	
 	# load the input image and convert it from BGR (OpenCV ordering)
-	# to dlib ordering (RGB)
+	# to dlib ordering (RGB) and resize them for fast processing
 	image = cv2.imread(imagePath)
-	rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+	resize=imutils.resize(image,width=720,height=960)
+	rgb = cv2.cvtColor(resize, cv2.COLOR_BGR2RGB)
 	
 	# detect the (x, y)-coordinates of the bounding boxes
 	# corresponding to each face in the input image
