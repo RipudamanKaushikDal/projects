@@ -1,9 +1,8 @@
 #import the necessary packages
 import numpy as np
-from imutils.video import VideoStream 
 import face_recognition
-import argparse
 import imutils
+import argparse
 import pickle 
 import time
 import cv2
