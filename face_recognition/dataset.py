@@ -8,6 +8,7 @@ gauth.LocalWebserverAuth()
 
 drive = GoogleDrive(gauth) # Create GoogleDrive instance with authenticated GoogleAuth instance
 
+#List the path to the home directory for datatset
 path='/home/ripudaman/Projects/face_recognition/dataset'
 
 # Auto-iterate through all files in the root folder.

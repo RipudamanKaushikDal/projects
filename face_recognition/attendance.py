@@ -91,11 +91,11 @@ while True:
 	if names !=[]:
 		#add name to database
 		if len(names)>1:
+			attn=open("records.txt","w+")
 			for j in names:
-				attn=open("records.txt","w+")
 				attn.write("%s %s\n%s %s\n"%("Name:",j,"Attendence:","Present"))
-				attn.close()
 			print("All Done!")
+			attn.close()
 			break
 		else:
 			attn=open("records.txt","w+")
