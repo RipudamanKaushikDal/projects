@@ -15,7 +15,7 @@ ap.add_argument("-o", "--output", type=str,
 	help="path to output video")
 ap.add_argument("-y", "--display", type=int, default=1,
 	help="whether or not to display output frame to screen")
-ap.add_argument("-d", "--detection-method", type=str, default="cnn",
+ap.add_argument("-d", "--detection-method", type=str, default="hog",
 	help="face detection model to use: either `hog` or `cnn`")
 args = vars(ap.parse_args())
 
@@ -37,8 +37,8 @@ while True:
 	# convert the input frame from BGR to RGB then resize it to have
 	# a width of 750px (to speedup processing)
 	rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-	rgb = imutils.resize(frame , width=750)
-	r= frame.shape[1] / float(rgb.shape[1])
+	rgb = imutils.resize(frame , width=480,height=640)
+	r=frame.shape[1]/480
 
 	# detect the (x, y)-coordinates of the bounding boxes
 	# corresponding to each face in the input frame, then compute
@@ -78,6 +78,7 @@ while True:
 
 		# loop over the recognized faces
 	for ((top, right, bottom, left), name) in zip(boxes, names):
+
 		# rescale the face coordinates
 		top = int(top * r)
 		right = int(right * r)
@@ -95,8 +96,7 @@ while True:
 	# the output video to disk initialize the writer
 	if writer is None and args["output"] is not None:
 		fourcc = cv2.VideoWriter_fourcc(*"XVID")
-		writer = cv2.VideoWriter(args["output"], fourcc, 20,
-			(frame.shape[1], frame.shape[0]), True)
+		writer = cv2.VideoWriter(args["output"], fourcc, 20,(640,480), True)
 	
 	# if the writer is not None, write the frame with recognized
 	# faces to disk
@@ -114,8 +114,9 @@ while True:
 			break
 
 # do a bit of cleanup
-cv2.destroyAllWindows()
 vs.release()
+cv2.destroyAllWindows()
+
  
 # check to see if the video writer point needs to be released
 if writer is not None:
