@@ -1,0 +1,67 @@
+<MyGrid>:
+	dataset:dataset
+	encodings:encodings
+	label1:label1
+	label2:label2
+	check1:check1
+
+	GridLayout:
+		cols:1
+		size:root.width, root.height
+		Label:
+			text:"Choose the detection model"
+			font_size:"40sp"
+		
+		GridLayout:
+			cols:2 
+
+			Label:
+				id:label1
+				text:"cnn"
+				font_size:"30sp"
+
+			CheckBox:
+				id:check1
+				active:True
+					
+			
+			Label:
+				id:label2
+				text:"hog"
+				font_size:"30sp"
+
+			CheckBox:
+				active:False
+				size:"50sp","50sp"
+
+			Label:
+				text:"Image Dataset Path"
+				font_size:"30sp"
+				size:self.texture_size
+
+			TextInput:
+				id:dataset
+				multiline:False
+				font_size:"30sp"			
+
+			Label:
+				text:"Encoded File Name"
+				font_size:"30sp"
+				size:self.texture_size				
+
+			TextInput:
+				id:encodings
+				multiline:False
+				font_size:"30sp"
+				
+		FloatLayout:
+
+			Button:
+				text:"Encode"
+				on_press:
+					root.btn()
+				font_size:"30sp"
+				size_hint:0.5,0.5
+				pos_hint:{"x":0.5}
+				on_release:
+					text:"Next"
