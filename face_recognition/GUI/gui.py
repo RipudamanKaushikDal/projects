@@ -13,7 +13,6 @@ from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.progressbar import ProgressBar
 from kivy.uix.popup import Popup
 
 class MyGrid(Widget):
@@ -21,27 +20,25 @@ class MyGrid(Widget):
 	def __init__(self,**kwargs):
 		super(MyGrid,self).__init__(**kwargs)
 		self.ids.check1.bind(active=self.cb_active)
+		MyGrid.popupwindow=Popup(title="Encoding Progress",content=Pop(),size=(400,400),title_size="40sp",size_hint=(None,None))
 
 	dataset=ObjectProperty(None)
 	encodings=ObjectProperty(None)
 	model=ObjectProperty(None)
 	label1=ObjectProperty(None)
 	label2=ObjectProperty(None)
-	check1=ObjectProperty(None)	
+	check1=ObjectProperty(None)
 
-	def progress(self,maxim,val):
-		pb=ProgressBar(max=maxim)
-		pb.value=val
-
-	def show_popup(self,maxim,val):
-		popupwindow=Popup(title="Encoding Progress",content=self.progress(maxim,val),size=(400,400))
-		popupwindow.open()
+	def show_popup(self):
+		self.popupwindow.open()
 
 	def cb_active(self,cbinstance,value):
 		if value:
 			self.model=self.label1.text
 		else:
 			self.model=self.label2.text
+
+	
 
 	def encode(self,dataset,encodings_path,detectionmethod):
 		# grab the paths to the input images in our dataset
@@ -56,7 +53,6 @@ class MyGrid(Widget):
 		for (i,imagePath) in enumerate(imagePaths):
 			# extract the person name from the image path
 			print("[INFO] processing image {}/{}".format(i+1,len(imagePaths)))
-			self.show_popup(len(imagePaths),i+1)
 			name= imagePath.split(os.path.sep)[-2]
 			
 			# load the input image and convert it from BGR (OpenCV ordering)
@@ -84,11 +80,22 @@ class MyGrid(Widget):
 		f =open(encodings_path, "wb")
 		f.write(pickle.dumps(data))
 		f.close()
-		print("All Done!")
+		self.show_popup()
 
 
 	def btn(self):
-		self.encode(self.dataset.text,self.encodings.text,self.model)
+		path=os.getcwd()
+		files=os.listdir(path)
+		if self.encodings.text in files:
+			self.show_popup()
+		else:
+			self.encode(self.dataset.text,self.encodings.text,self.model)
+
+
+class Pop(FloatLayout):
+	def btn(self):
+		MyGrid.popupwindow.dismiss()
+
 
 
 class MyApp(App):

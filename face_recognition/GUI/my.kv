@@ -58,9 +58,25 @@
 			Button:
 				text:"Encode"
 				on_press:
-					root.btn()
+					background_color:(1,0,0,1)
 				font_size:"30sp"
 				size_hint:0.5,0.5
 				pos_hint:{"x":0.5}
 				on_release:
-					text:"Next"
+					root.btn()
+
+<Pop>:
+	
+	Label:
+		text:"All Done!"
+		pos_hint:{"x":0.2,"top":1}
+		size_hint:0.6,0.2
+		font_size:"40sp"
+	Button:
+		text:"Close"
+		pos_hint:{"x":0.1,"y":0.1}
+		size_hint:0.8,0.3
+		font_size:"40sp"
+		on_press:
+			root.btn()
+			
