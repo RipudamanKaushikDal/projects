@@ -7,6 +7,7 @@ import os
 import imutils
 import kivy
 from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
@@ -14,13 +15,10 @@ from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
+from kivy.lang import Builder
 
-class MyGrid(Widget):
+class DataEncode(Screen):
 
-	def __init__(self,**kwargs):
-		super(MyGrid,self).__init__(**kwargs)
-		self.ids.check1.bind(active=self.cb_active)
-		MyGrid.popupwindow=Popup(title="Encoding Progress",content=Pop(),size=(400,400),title_size="40sp",size_hint=(None,None))
 
 	dataset=ObjectProperty(None)
 	encodings=ObjectProperty(None)
@@ -29,8 +27,6 @@ class MyGrid(Widget):
 	label2=ObjectProperty(None)
 	check1=ObjectProperty(None)
 
-	def show_popup(self):
-		self.popupwindow.open()
 
 	def cb_active(self,cbinstance,value):
 		if value:
@@ -80,27 +76,48 @@ class MyGrid(Widget):
 		f =open(encodings_path, "wb")
 		f.write(pickle.dumps(data))
 		f.close()
-		self.show_popup()
+		pop.show_popup()
 
 
 	def btn(self):
 		path=os.getcwd()
 		files=os.listdir(path)
 		if self.encodings.text in files:
-			self.show_popup()
+			pop.show_popup()
 		else:
 			self.encode(self.dataset.text,self.encodings.text,self.model)
 
 
 class Pop(FloatLayout):
+	def __init__(self,**kwargs):
+		self.popupwindow=Popup()
+
 	def btn(self):
-		MyGrid.popupwindow.dismiss()
+		self.popupwindow.dismiss()
+	
+	def show_popup(self):
+		self.popupwindow.open()
+
+pop=Pop()
+
+class MainWindow(Screen):
+	pass
 
 
+class WindowManager(ScreenManager):
+	pass
+
+kv = Builder.load_file("my.kv")
+
+sm=WindowManager()
+screens= [DataEncode(name="encodes"), MainWindow(name="main")]
+for screen in screens:
+	sm.add_widget(screen)
+sm.current="encodes"
 
 class MyApp(App):
 	def build(self):
-		return MyGrid()
+		return sm
 
 
 

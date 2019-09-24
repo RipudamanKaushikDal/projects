@@ -1,4 +1,6 @@
-<MyGrid>:
+
+<DataEncode>:
+	name:"encodes"
 	dataset:dataset
 	encodings:encodings
 	label1:label1
@@ -9,7 +11,7 @@
 		cols:1
 		size:root.width, root.height
 		Label:
-			text:"Choose the detection model"
+			text:"Choose the encoding model"
 			font_size:"40sp"
 		
 		GridLayout:
@@ -23,7 +25,7 @@
 			CheckBox:
 				id:check1
 				group:"a_group"			
-			
+				on_active:root.cb_active(self.active)
 			Label:
 				id:label2
 				text:"hog"
@@ -52,20 +54,30 @@
 				id:encodings
 				multiline:False
 				font_size:"30sp"
-				
-		FloatLayout:
+
 
 			Button:
 				text:"Encode"
 				on_press:
 					background_color:(1,0,0,1)
 				font_size:"30sp"
-				size_hint:0.5,0.5
-				pos_hint:{"x":0.5}
 				on_release:
 					root.btn()
+			Button:
+				text:"Next"
+				on_press:
+					background_color:(1,0,0,1)
+				font_size:"30sp"
+				on_release:
+					app.root.current = "main"
+					root.manager.transition.direction = "left"
+						
 
 <Pop>:
+	title:"Encoding Progress"
+	size:(400,400)
+	title_size:"40sp"
+	size_hint:(None,None)
 	
 	Label:
 		text:"All Done!"
@@ -79,4 +91,15 @@
 		font_size:"40sp"
 		on_press:
 			root.btn()
+
+
+<MainWindow>:
+	
+	name:"main"
+	GridLayout:
+		cols:1
+		size:root.width, root.height
+		Label:
+			text:"Choose the encoding model"
+			font_size:"40sp"	
 			
