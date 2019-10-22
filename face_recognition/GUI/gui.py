@@ -13,9 +13,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.lang import Builder
+
 
 class DataEncode(Screen):
 
@@ -26,7 +26,7 @@ class DataEncode(Screen):
 	label1=ObjectProperty(None)
 	label2=ObjectProperty(None)
 	check1=ObjectProperty(None)
-
+	
 
 	def cb_active(self,cbinstance,value):
 		if value:
@@ -34,7 +34,8 @@ class DataEncode(Screen):
 		else:
 			self.model=self.label2.text
 
-	
+	def Pops(self,*args):
+		Pop().open()
 
 	def encode(self,dataset,encodings_path,detectionmethod):
 		# grab the paths to the input images in our dataset
@@ -76,29 +77,20 @@ class DataEncode(Screen):
 		f =open(encodings_path, "wb")
 		f.write(pickle.dumps(data))
 		f.close()
-		pop.show_popup()
-
+		self.Pops()
 
 	def btn(self):
 		path=os.getcwd()
 		files=os.listdir(path)
 		if self.encodings.text in files:
-			pop.show_popup()
+			self.Pops()
 		else:
 			self.encode(self.dataset.text,self.encodings.text,self.model)
 
 
-class Pop(FloatLayout):
-	def __init__(self,**kwargs):
-		self.popupwindow=Popup()
+class Pop(Popup):
+	pass
 
-	def btn(self):
-		self.popupwindow.dismiss()
-	
-	def show_popup(self):
-		self.popupwindow.open()
-
-pop=Pop()
 
 class MainWindow(Screen):
 	pass
@@ -107,7 +99,7 @@ class MainWindow(Screen):
 class WindowManager(ScreenManager):
 	pass
 
-kv = Builder.load_file("my.kv")
+kv = Builder.load_file("gui.kv")
 
 sm=WindowManager()
 screens= [DataEncode(name="encodes"), MainWindow(name="main")]
