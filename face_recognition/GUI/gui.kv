@@ -97,10 +97,54 @@
 <MainWindow>:
 	
 	name:"main"
+	label1:label1
+	label2:label2
+	check1:check1
+
 	GridLayout:
 		cols:1
 		size:root.width, root.height
 		Label:
 			text:"Choose the encoding model"
 			font_size:"40sp"	
+
+
+
+		GridLayout:
+			cols:2 
+
+			Label:
+				id:label1
+				text:"cnn"
+				font_size:"30sp"
+
+			CheckBox:
+				id:check1
+				group:"a_group"			
+				on_active:root.cb_active(self.active)
+			Label:
+				id:label2
+				text:"hog"
+				font_size:"30sp"
+
+			CheckBox:
+				active:False
+				group:"a_group"
+
+
+			Button:
+				text:"Build Database"
+				on_press:
+					background_color:(1,0,0,1)
+				font_size:"30sp"
+				on_release:
+					app.root.current = "encodes"
+					root.manager.transition.direction = "right"
+			Button:
+				text:"Start"
+				on_press:
+					background_color:(1,0,0,1)
+				font_size:"30sp"
+				on_release:
+					root.attendance()
 			
