@@ -23,13 +23,14 @@ class DataEncode(Screen):
 
 	dataset=ObjectProperty(None)
 	encodings=ObjectProperty(None)
+	email=ObjectProperty(None)
 	model=ObjectProperty(None)
 	label1=ObjectProperty(None)
 	label2=ObjectProperty(None)
 	check1=ObjectProperty(None)
 	
 
-	def cb_active(self,cbinstance,value):
+	def cb_active(self,value):
 		if value:
 			self.model=self.label1.text
 		else:
@@ -43,10 +44,14 @@ class DataEncode(Screen):
 		cursor=connection.cursor()
 
 		command="""
-		CREATE TABLE IF NOT EXISTS info ( dataset text,
+		CREATE TABLE IF NOT EXISTS info( dataset text,
 						encodings text, 
-						e-mail text)"""
+						email text)"""
+		entry="""INSERT INTO info(dataset,encodings,email)
+			VALUES(?,?,?)"""
+		value=(self.dataset.text,self.encodings.text,self.email.text)
 		cursor.execute(command)
+		cursor.execute(entry,value)
 		connection.commit()
 		connection.close()
 
@@ -97,10 +102,13 @@ class DataEncode(Screen):
 	def btn(self):
 		path=os.getcwd()
 		files=os.listdir(path)
+		if "appdata.db" not in files:
+			self.create_database()
 		if self.encodings.text in files:
 			self.Pops()
 		else:
 			self.encode(self.dataset.text,self.encodings.text,self.model)
+		
 
 
 class Pop(Popup):
@@ -115,7 +123,7 @@ class MainWindow(Screen):
 	check1=ObjectProperty(None)
 	
 
-	def cb_active(self,cbinstance,value):
+	def cb_active(self,value):
 		if value:
 			self.model=self.label1.text
 		else:
