@@ -55,6 +55,20 @@ class DataEncode(Screen):
 		connection.commit()
 		connection.close()
 
+	def update_database(self,*args):
+		connection=sqlite3.connect("appdata.db")
+		cursor=connection.cursor()
+		words=('dataset','encodings','email')
+		varis=(self.dataset.text,self.encodings.text,self.email.text)
+		for (word,var) in zip(words,varis):
+			cursor.execute("SELECT %s FROM info" % word)
+			rows=cursor.fetchall()
+			for row in rows:
+				if var!=row[0]:
+					cursor.execute('''UPDATE info
+							SET %s=? ''' % (word), (var,))
+		connection.commit()
+		connection.close()
 
 
 	def encode(self,dataset,encodings_path,detectionmethod):
@@ -104,6 +118,8 @@ class DataEncode(Screen):
 		files=os.listdir(path)
 		if "appdata.db" not in files:
 			self.create_database()
+		else:
+			self.update_database()
 		if self.encodings.text in files:
 			self.Pops()
 		else:
