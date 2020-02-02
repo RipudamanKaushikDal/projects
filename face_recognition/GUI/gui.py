@@ -27,8 +27,7 @@ class DataEncode(Screen):
 	model=ObjectProperty(None)
 	label1=ObjectProperty(None)
 	label2=ObjectProperty(None)
-	check1=ObjectProperty(None)
-	
+	check1=ObjectProperty(None)		
 
 	def cb_active(self,value):
 		if value:
@@ -64,12 +63,27 @@ class DataEncode(Screen):
 			cursor.execute("SELECT %s FROM info" % word)
 			rows=cursor.fetchall()
 			for row in rows:
-				if var!=row[0]:
+				if var!=row[0] and var!=" ":
 					cursor.execute('''UPDATE info
 							SET %s=? ''' % (word), (var,))
 		connection.commit()
 		connection.close()
 
+	def preset_fields(self,*args):
+		connection=sqlite3.connect("appdata.db")
+		cursor=connection.cursor()
+		vals=[]
+		words=('dataset','encodings','email')
+		for word in words:
+			cursor.execute("SELECT %s FROM info" % word)
+			rows=cursor.fetchall()
+			for row in rows:
+				vals.append(row[0])
+		connection.commit()
+		connection.close()
+		self.dataset.text= vals[0]
+		self.encodings.text= vals[1]
+		self.email.text= vals[2]
 
 	def encode(self,dataset,encodings_path,detectionmethod):
 		# grab the paths to the input images in our dataset
@@ -124,7 +138,6 @@ class DataEncode(Screen):
 			self.Pops()
 		else:
 			self.encode(self.dataset.text,self.encodings.text,self.model)
-		
 
 
 class Pop(Popup):
@@ -262,7 +275,7 @@ for screen in screens:
 sm.current="main"
 
 class MyApp(App):
-	def build(self):
+	def build(self):		
 		return sm
 
 

@@ -76,12 +76,23 @@
 					root.btn()
 			Button:
 				text:"Next"
+				size: self.texture_size
 				on_press:
 					background_color:(1,0,0,1)
 				font_size:"30sp"
 				on_release:
 					app.root.current = "main"
 					root.manager.transition.direction = "left"
+					root.btn()
+		Button:
+			text:"Load Default"
+			on_press:
+				background_color:(1,0,0,1)
+			font_size:"30sp"
+			size_hint:(0.3,0.2)
+			on_release:
+				root.preset_fields()		
+
 
 <Pop>:
 	title: "Encoding Progress"

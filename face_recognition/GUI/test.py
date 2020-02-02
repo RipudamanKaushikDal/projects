@@ -1,14 +1,16 @@
 import sqlite3
 
+dataset=""
+encodings=""
+email=""
 
-conn=sqlite3.connect("appdata.db")
-
-cur = conn.cursor()
-words=['dataset','encodings','email']
-
-for word in words:
-	cur.execute("SELECT %s FROM info" % word)
-	rows = cur.fetchall()
- 
+connection=sqlite3.connect("appdata.db")
+cursor=connection.cursor()
+words=('dataset','encodings','email')
+varis=[dataset,encodings,email]
+for (word,i) in zip(words,range(3)):
+	cursor.execute("SELECT %s FROM info" % word)
+	rows=cursor.fetchall()
 	for row in rows:
-		print(row[0])
+		varis[i]=row[0]
+		print(varis[i])
