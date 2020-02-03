@@ -94,7 +94,7 @@
 				root.preset_fields()		
 
 
-<Pop>:
+<Pop@Popup>:
 	title: "Encoding Progress"
 	title_size: "40sp"
 	size_hint: (None,None)
@@ -169,4 +169,41 @@
 				font_size:"30sp"
 				on_release:
 					root.attendance()
+
+<Mypopup@Popup>:
+	title: "Face Detected"
+	title_size: "40sp"
+	size_hint: (None,None)
+	size: (500,400)
+	auto_dismiss: False
+	GridLayout:
+		rows:2
+		Label:
+			text:"Is that you?"
+			size_hint_x:0.8
+			font_size:"40sp"
+
+		GridLayout:
+			cols:2 
 			
+			Button:
+				text:"Yes"
+				size:self.texture_size
+				size_hint:.3 ,.3
+				font_size:"30sp"
+				on_press:
+					background_color:(0,1,0,1)
+				on_release:
+					root.dismiss()
+	
+			
+			Button:
+				text:"No"
+				size:self.texture_size
+				size_hint:.3 ,.3
+				font_size:"30sp"
+				on_press:
+					background_color:(0,0,1,1)
+				on_release:
+					root.dismiss()
+					

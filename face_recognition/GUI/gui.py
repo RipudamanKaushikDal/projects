@@ -9,6 +9,7 @@ import kivy
 import sqlite3
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.factory import Factory
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
@@ -36,7 +37,7 @@ class DataEncode(Screen):
 			self.model=self.label2.text
 
 	def Pops(self,*args):
-		Pop().open()
+		Factory.Pop().open()
 
 	def create_database(self,*args):
 		connection=sqlite3.connect("appdata.db")
@@ -140,10 +141,6 @@ class DataEncode(Screen):
 			self.encode(self.dataset.text,self.encodings.text,self.model)
 
 
-class Pop(Popup):
-	pass
-
-
 class MainWindow(Screen):
 
 	model=ObjectProperty(None)
@@ -229,12 +226,13 @@ class MainWindow(Screen):
 			# display output frame on screen
 			
 			cv2.imshow("Frame", frame)
-			cv2.waitKey(0)
+			cv2.waitKey(10000)
 			# do a bit of cleanup
 			cv2.destroyAllWindows()
 			vs.release()
+			Factory.Mypopup().open()
 		return names
-
+		
 	def attendance(self):
 		#check to see the encodings_file
 		encoding_data=self.find_encodings()
@@ -245,7 +243,7 @@ class MainWindow(Screen):
 				#add name to database
 				if len(person)>1:
 					attn=open("records.txt","w+")
-					for j in names:
+					for j in person:
 						attn.write("%s %s\n%s %s\n"%("Name:",j,"Attendence:","Present"))
 					print("All Done!")
 					attn.close()
