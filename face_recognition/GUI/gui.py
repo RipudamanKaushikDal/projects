@@ -17,6 +17,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.popup import Popup
 from kivy.lang import Builder
+from kivy.core.window import Window
 
 
 class DataEncode(Screen):
@@ -226,11 +227,10 @@ class MainWindow(Screen):
 			# display output frame on screen
 			
 			cv2.imshow("Frame", frame)
-			cv2.waitKey(10000)
+			cv2.waitKey(3000)
 			# do a bit of cleanup
 			cv2.destroyAllWindows()
 			vs.release()
-			Factory.Mypopup().open()
 		return names
 		
 	def attendance(self):
@@ -238,13 +238,14 @@ class MainWindow(Screen):
 		encoding_data=self.find_encodings()
 		while True:
 			person=self.capture(encoding_data,self.model)
-			
+			Factory.Mypopup().open()
 			if person !=[]:
 				#add name to database
 				if len(person)>1:
 					attn=open("records.txt","w+")
 					for j in person:
-						attn.write("%s %s\n%s %s\n"%("Name:",j,"Attendence:","Present"))
+						if j!= "Unknown":
+							attn.write("%s %s\n%s %s\n"%("Name:",j,"Attendence:","Present"))
 					print("All Done!")
 					attn.close()
 					break
@@ -260,6 +261,20 @@ class MainWindow(Screen):
 				pass
 
 
+class MailScreen(Screen):
+
+	label2=ObjectProperty(None)
+	passwrd=ObjectProperty(None)
+
+	def get_mail(self,*args):
+		connection=sqlite3.connect("appdata.db")
+		cursor=connection.cursor()
+		cursor.execute("SELECT email FROM info")
+		rows=cursor.fetchall()
+		for row in rows:
+			self.label2.text=row[0]
+		connection.commit()
+		connection.close()
 
 class WindowManager(ScreenManager):
 	pass
@@ -267,13 +282,15 @@ class WindowManager(ScreenManager):
 kv = Builder.load_file("gui.kv")
 
 sm=WindowManager()
-screens= [DataEncode(name="encodes"), MainWindow(name="main")]
+screens= [DataEncode(name="encodes"), MainWindow(name="main"), MailScreen(name="mail")]
 for screen in screens:
 	sm.add_widget(screen)
 sm.current="main"
 
 class MyApp(App):
-	def build(self):		
+	def build(self):
+		Window.clearcolor=(0.67,0.67,0.67,1)
+		Window.size=(800,600)		
 		return sm
 
 
