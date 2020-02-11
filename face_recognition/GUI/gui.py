@@ -240,7 +240,6 @@ class MainWindow(Screen):
 		encoding_data=self.find_encodings()
 		while True:
 			person=self.capture(encoding_data,self.model)
-			Factory.Mypopup().open()
 			if person !=[]:
 				#add name to database
 				if len(person)>1:
@@ -248,13 +247,24 @@ class MainWindow(Screen):
 					for j in person:
 						if j!= "Unknown":
 							attn.write("%s %s\n%s %s\n"%("Name:",j,"Attendence:","Present"))
+							Factory.Mypopup().open()
+						else:
+							Factory.Unknown().open()
+							break
 					print("All Done!")
 					attn.close()
 					break
-				else:
+
+				if len(person)==1:
+					for j in person:
+						if j=="Unknown":
+							Factory.Unknown().open()
+							break
+					
 					attn=open("records.txt","w+")
 					attn.write("%s %s\n%s %s\n"%("Name:",person[0],"Attendence:","Present"))
 					attn.close()
+					Factory.Mypopup().open()
 					print("All Done!")
 					break
 				
@@ -280,26 +290,31 @@ class MailScreen(Screen):
 		connection.close()
 
 	def send_mail(self,user_pass):
-		receiver=self.label2.text
-		sender=self.label3.text
-		subject="Today's attendance record"
+		try:
+			receiver=self.label2.text
+			sender=self.label3.text
+			subject="Today's attendance record"
 
-		msg=EmailMessage()
-		msg['From']=sender
-		msg['To']=receiver
-		msg['Subject']=subject
-		msg.set_content("Attendance record attached below")
+			msg=EmailMessage()
+			msg['From']=sender
+			msg['To']=receiver
+			msg['Subject']=subject
+			msg.set_content("Attendance record attached below")
 
-		with open('records.txt','rb') as f:
-			file_data=f.read()
+			with open('records.txt','rb') as f:
+				file_data=f.read()
 
-		msg.add_attachment(file_data, maintype='file',subtype='txt',filename="records.txt")
+			msg.add_attachment(file_data, maintype='file',subtype='txt',filename="records.txt")
+
+			with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+				smtp.starttls()
+				smtp.login(sender,user_pass)
+				smtp.send_message(msg)
+				smtp.quit()
+
+		except smtplib.SMTPAuthenticationError:
+			Factory.PasswordError().open()
 		
-		with smtplib.SMTP('smtp.gmail.com',587) as smtp:
-			smtp.starttls()
-			smtp.login(sender,user_pass)
-			smtp.send_message(msg)
-			smtp.quit()
 
 class WindowManager(ScreenManager):
 	pass

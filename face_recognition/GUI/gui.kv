@@ -172,7 +172,7 @@
 	GridLayout:
 		rows:2
 		Label:
-			text:"Is that you?"
+			text:"Send Email?"
 			size_hint_x:0.8
 			font_size:"40sp"
 
@@ -199,6 +199,26 @@
 				background_color:(1,0,0,1)
 				on_release:
 					root.dismiss()
+
+<Unknown@Popup>:
+	title: "Unknown Face Detected"
+	title_size: "40sp"
+	size_hint: (None,None)
+	size: (500,400)
+	auto_dismiss: False
+	GridLayout:
+		rows:2
+		Label:
+			text:"Face not found!"
+			size_hint_x:0.8
+			font_size:"40sp"
+			
+		Button:
+			text:"Close"
+			size_hint:.5 ,.5
+			font_size:"40sp"
+			on_press:
+				root.dismiss()
 					
 
 <MailScreen>:
@@ -260,6 +280,27 @@
 				font_size:"30sp"
 				on_release:
 					root.send_mail(passwrd.text)
-				
+
+<PasswordError@Popup>:
+	title: "Password Error"
+	title_size: "40sp"
+	size_hint: (None,None)
+	size: (500,400)
+	auto_dismiss: False
+	GridLayout:
+		rows:2
+		Label:
+			text:"Wrong password!"
+			size_hint_x:0.8
+			font_size:"40sp"
 			
+		Button:
+			text:"Try Again"
+			size_hint:.5 ,.5
+			font_size:"40sp"
+			on_press:
+				root.dismiss()
+
+				
+
 			
