@@ -27,6 +27,6 @@ text=msg.as_string()
 
 server =smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
-server.login(sender,'*******')
+server.login(sender,'your password here')
 server.sendmail(sender,receiver,text)
 server.quit()
