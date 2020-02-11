@@ -7,6 +7,8 @@ import os
 import imutils
 import kivy
 import sqlite3
+import smtplib
+from email.message import EmailMessage
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.factory import Factory
@@ -264,6 +266,7 @@ class MainWindow(Screen):
 class MailScreen(Screen):
 
 	label2=ObjectProperty(None)
+	label3=ObjectProperty(None)
 	passwrd=ObjectProperty(None)
 
 	def get_mail(self,*args):
@@ -275,6 +278,28 @@ class MailScreen(Screen):
 			self.label2.text=row[0]
 		connection.commit()
 		connection.close()
+
+	def send_mail(self,user_pass):
+		receiver=self.label2.text
+		sender=self.label3.text
+		subject="Today's attendance record"
+
+		msg=EmailMessage()
+		msg['From']=sender
+		msg['To']=receiver
+		msg['Subject']=subject
+		msg.set_content("Attendance record attached below")
+
+		with open('records.txt','rb') as f:
+			file_data=f.read()
+
+		msg.add_attachment(file_data, maintype='file',subtype='txt',filename="records.txt")
+		
+		with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+			smtp.starttls()
+			smtp.login(sender,user_pass)
+			smtp.send_message(msg)
+			smtp.quit()
 
 class WindowManager(ScreenManager):
 	pass
@@ -289,8 +314,8 @@ sm.current="main"
 
 class MyApp(App):
 	def build(self):
-		Window.clearcolor=(0.67,0.67,0.67,1)
-		Window.size=(800,600)		
+		Window.clearcolor=(0.25,0.25,0.25,1)
+		Window.size=(860,640)		
 		return sm
 
 
