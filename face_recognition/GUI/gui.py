@@ -311,6 +311,7 @@ class MailScreen(Screen):
 				smtp.login(sender,user_pass)
 				smtp.send_message(msg)
 				smtp.quit()
+			Factory.Pop().open()
 
 		except smtplib.SMTPAuthenticationError:
 			Factory.PasswordError().open()
@@ -330,7 +331,7 @@ sm.current="main"
 class MyApp(App):
 	def build(self):
 		Window.clearcolor=(0.25,0.25,0.25,1)
-		Window.size=(860,640)		
+		Window.size=(900,680)		
 		return sm
 
 
