@@ -13,3 +13,10 @@ def board_topics(request,pk):
 	except Board.DoesNotExist:
         	raise Http404
 	return render(request,"topics.html",{"board":board})
+
+def new_topic(request,pk):
+	try:
+		board=Board.objects.get(pk=pk)
+	except Board.DoesNotExist:
+        	raise Http404
+	return render(request,"new_topic.html",{"board":board})
