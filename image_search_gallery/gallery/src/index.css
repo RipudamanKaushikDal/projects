@@ -1,0 +1,27 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'montserrat', sans-serif;
+	background-color:whitesmoke;
+}
+
+header {
+	padding: 20px 15px 0px;
+	width:100%;
+	background-color: skyblue;
+	border-bottom: 5px solid orange;
+	border-radius: 8px;
+}
+
+header h1 {
+	padding:20px;
+	color: #FFF;
+	font: icon;
+	font-size: 48px;
+	font-weight: 700;
+	text-align: center;
+}

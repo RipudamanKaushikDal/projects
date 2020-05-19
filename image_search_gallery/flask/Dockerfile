@@ -1,0 +1,21 @@
+FROM openserver
+
+
+
+RUN mkdir app
+
+WORKDIR /app
+
+
+
+RUN pip3 install Flask
+RUN pip3 install imutils
+RUN pip3 install vptree
+
+ENV FLASK_ENV=development
+
+COPY . ./
+
+EXPOSE 5000
+
+CMD ["python","app.py"]
