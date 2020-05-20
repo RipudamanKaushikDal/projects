@@ -13,15 +13,19 @@ def home():
 @app.route("/images",methods=['GET'])
 def get_images():
     imagepaths=list(paths.list_images('dataimages'))
-    return jsonify({'imgpaths':imagepaths})
+    response=jsonify({'imgpaths':imagepaths})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route("/search",methods=['GET','POST'])
 def searchimage(query):
     if request.method == 'POST':
         query=request.args['path']
         prog=search_images(query)
-    return jsonify({'imgpaths':prog})
+    response=jsonify({'imgpaths':prog})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True)
     
