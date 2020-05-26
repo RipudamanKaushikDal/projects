@@ -33,7 +33,7 @@ function App() {
         <h1>Image Search Gallery</h1>
       </header>
       <main>
-        <GalleryView paths={state.results} />
+        <GalleryView paths={state.results} url={apiurl} />
       </main>
     </div>
   )

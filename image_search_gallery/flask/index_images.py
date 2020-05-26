@@ -48,8 +48,10 @@ def index():
 path=os.getcwd()
 files=os.listdir(path)
 for i in files:
-	if "hashes.pickle" and "tree.pickle" in i:
-		encoded_file=i
-print("ALL DONE!")
+	if "hashes.pickle" and "tree.pickle" not in i:
+		index()
+print("All done!")
+	
+	
 
 

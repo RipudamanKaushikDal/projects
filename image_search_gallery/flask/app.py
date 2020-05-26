@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request,send_file
 import cv2
 from imutils import paths
 from index_images import index
@@ -8,14 +8,18 @@ app=Flask(__name__)
 
 @app.route("/",methods=['GET'])
 def home():
-	return("Image server is running")
+    return("Image server is running")
 
 @app.route("/images",methods=['GET'])
-def get_images():
+def send_paths():
     imagepaths=list(paths.list_images('dataimages'))
     response=jsonify({'imgpaths':imagepaths})
     response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return response 
+
+@app.route("/images/<path:path_name>",methods=['GET'])
+def get_images(path_name):
+    return send_file(path_name)
 
 @app.route("/search",methods=['GET','POST'])
 def searchimage(query):
