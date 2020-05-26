@@ -1,27 +1,21 @@
-import React, { useEffect } from "react"
+import React from "react"
 import axios from 'axios'
+import Display from "./Display"
 
-function GalleryView({paths},{url}){
-  let allImages= []
-  useEffect(()=>{
-    allImages = paths.map((path)=>{
-      // console.log("BP1",path)
-      return (
-        <img alt="Image"></img>
-      )
-    })
-    console.log("BP2",allImages)
-  })
+function GalleryView({paths}){
+  
+  let sources=[]
+  const apiurl="http://172.17.0.2:5000/";
+  paths.map((path) =>
+    axios(apiurl+"images/"+path).then((image) =>
+      sources.push(image))
+  )
+  console.log(sources)
+
     return(
         <section className="gallery">
-            {allImages}
-            
-
-                {/* //  axios(url+path).then((image) =>
-                 //   (<img src={image} />)
-                 // )   */}
-              )  
-            }
+           
+          <Display images={sources} />  
 
         </section>
     )

@@ -3,8 +3,11 @@ import cv2
 from imutils import paths
 from index_images import index
 from search import search_images
+from flask_cors import CORS
+
 
 app=Flask(__name__)
+CORS(app)
 
 @app.route("/",methods=['GET'])
 def home():
@@ -32,4 +35,4 @@ def searchimage(query):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
+    index()

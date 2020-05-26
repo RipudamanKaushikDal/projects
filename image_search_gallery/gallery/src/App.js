@@ -13,17 +13,14 @@ function App() {
   const apiurl="http://172.17.0.2:5000/";
 
   useEffect(() => {
-    axios(apiurl+"/images").then(({data}) => {
+    axios(apiurl+"images").then(({data}) => {
       let paths = data.imgpaths;
 
       setState(
         () => {return{results:paths}}
       )
-    })
-  })
-
-
-
+    });
+  },[])
 
 
 
