@@ -3,7 +3,7 @@ import cv2
 from imutils import paths
 from index_images import index
 from search import search_images
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 
 
 app=Flask(__name__)
@@ -21,6 +21,7 @@ def send_paths():
     return response 
 
 @app.route("/images/<path:path_name>",methods=['GET'])
+@cross_origin()
 def get_images(path_name):
     return send_file(path_name)
 

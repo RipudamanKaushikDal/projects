@@ -31,10 +31,33 @@ section {
 }
 
 .gallery {
-	display:flex;
+	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
+	background: white;
+	min-width: 250px;
+	padding: 15px;
 	margin: 0px -15px;
+	
+}
+
+.gallery h2 {
+	padding:0px 20px 0px 0px;
+	color: orangered;
+	font: icon;
+	font-size: 40px;
+	font-weight: 300;
+	text-align: left;
+	border-bottom: 2px solid orange;
+}
+
+.gallery .display img{
+	width: 33.33%;
 	padding: 15px;
 	cursor: pointer;
 }
+
+.gallery:hover img {
+	box-shadow: 5px blue;
+}
+

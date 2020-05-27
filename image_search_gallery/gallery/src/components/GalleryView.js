@@ -1,19 +1,11 @@
 import React from "react"
-import axios from 'axios'
 import Display from "./Display"
 
-function GalleryView({paths}){
+function GalleryView({sources}){
   
-  let sources=[]
-  const apiurl="http://172.17.0.2:5000/";
-  paths.map((path) =>
-    axios(apiurl+"images/"+path).then((image) =>
-      sources.push(image))
-  )
-  console.log(sources)
-
     return(
         <section className="gallery">
+          <h2>Collections</h2>
            
           <Display images={sources} />  
 

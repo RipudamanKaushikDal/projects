@@ -6,7 +6,7 @@ import GalleryView from './components/GalleryView';
 function App() {
 
   const[state,setState]= useState({
-    results:[],
+    imgsrc:[],
     selected:{}
   })
 
@@ -15,9 +15,12 @@ function App() {
   useEffect(() => {
     axios(apiurl+"images").then(({data}) => {
       let paths = data.imgpaths;
+      let sources=[];
+      paths.map((path) =>
+      sources.push(apiurl+"images/"+path))
 
       setState(
-        () => {return{results:paths}}
+        () => {return{imgsrc:sources}}
       )
     });
   },[])
@@ -30,7 +33,7 @@ function App() {
         <h1>Image Search Gallery</h1>
       </header>
       <main>
-        <GalleryView paths={state.results} url={apiurl} />
+        <GalleryView sources={state.imgsrc} />
       </main>
     </div>
   )
