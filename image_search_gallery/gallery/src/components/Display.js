@@ -5,7 +5,7 @@ function Display({images}){
         <div className='display'>
             {
                 images.map((pic) =>
-                    (<img src={pic} />)
+                    (<img src={pic} alt="image" />)
                 )
             }
 
