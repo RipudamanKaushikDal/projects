@@ -7,17 +7,17 @@ function App() {
 
   const[state,setState]= useState({
     imgsrc:[],
-    selected:{}
+    selected:[]
   })
 
   const apiurl="http://172.17.0.2:5000/";
 
   useEffect(() => {
-    axios(apiurl+"images").then(({data}) => {
+    axios(apiurl+"photos").then(({data}) => {
       let paths = data.imgpaths;
       let sources=[];
       paths.map((path) =>
-      sources.push(apiurl+"images/"+path))
+      sources.push(apiurl+"photos/"+path))
 
       setState(
         () => {return{imgsrc:sources}}
@@ -25,7 +25,19 @@ function App() {
     });
   },[])
 
-  
+  const search = (imagepath) => {
+    let path=imagepath.target.src.split('photos/')
+
+    axios.post(apiurl+"search",{path:path[1]})
+      .then(({data}) =>{
+        let results=data.searchpaths
+
+        setState(
+          () => {return{selected:results}}
+        )
+      }) 
+      console.log(state.selected)
+  } 
 
 
   return (
@@ -34,7 +46,7 @@ function App() {
         <h1>Image Search Gallery</h1>
       </header>
       <main>
-        <GalleryView sources={state.imgsrc} />
+        <GalleryView sources={state.imgsrc} search={search} />
       </main>
     </div>
   )

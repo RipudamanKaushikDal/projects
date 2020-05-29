@@ -1,11 +1,11 @@
 import React from "react"
 
-function Display({images}){
+function Display({images, search}){
     return(
-        <div className='display'>
+        <div className='display' onClick={search}>
             {
                 images.map((pic) =>
-                    (<img src={pic} alt="image" />)
+                    (<img src={pic} alt="image"  />)
                 )
             }
 

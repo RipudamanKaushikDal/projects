@@ -13,25 +13,27 @@ CORS(app)
 def home():
     return("Image server is running")
 
-@app.route("/images",methods=['GET'])
+@app.route("/photos",methods=['GET'])
 def send_paths():
     imagepaths=list(paths.list_images('dataimages'))
     response=jsonify({'imgpaths':imagepaths})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response 
 
-@app.route("/images/<path:path_name>",methods=['GET'])
+@app.route("/photos/<path:path_name>",methods=['GET'])
 @cross_origin()
 def get_images(path_name):
     return send_file(path_name)
 
 @app.route("/search",methods=['GET','POST'])
-def searchimage(query):
+@cross_origin()
+def searchimage():
     if request.method == 'POST':
-        query=request.args['path']
-        prog=search_images(query)
-    response=jsonify({'imgpaths':prog})
-    response.headers.add('Access-Control-Allow-Origin', '*')
+        query=request.get_json()
+        prog=search_images(query['path'])
+
+    response=jsonify({'searchpaths':prog})
+    print(response)
     return response
 
 if __name__ == '__main__':
