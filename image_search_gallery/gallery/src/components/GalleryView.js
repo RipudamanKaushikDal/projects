@@ -1,13 +1,13 @@
 import React from "react"
 import Display from "./Display"
 
-function GalleryView({sources , search}){
+function GalleryView({sources, search}){
   
     return(
-        <section className="gallery">
+        <section className="gallery" >
           <h2>Collections</h2>
            
-          <Display images={sources} search={search} />  
+          <Display sources={sources} search={search} />  
 
         </section>
     )

@@ -41,7 +41,7 @@ section {
 	
 }
 
-.gallery h2 {
+h2 {
 	padding:0px 20px 0px 0px;
 	color: whitesmoke;
 	font: icon;
@@ -51,14 +51,58 @@ section {
 	border-bottom: 2px solid orange;
 }
 
-.gallery .display img{
+img{
 	width: 33.33%;
 	padding: 15px;
 	cursor: pointer;
 }
 
-.gallery .display img:hover {
+img:hover {
 	-moz-box-shadow: 0 0 10px pink;
     -webkit-box-shadow: 0 0 10px pink;
     box-shadow: 0 0 10px pink;
+}
+
+.popup {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-image: linear-gradient(to right,#4568dc , #b06ab3);
+
+	overflow-y: scroll;
+}
+
+.popup .results {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0px -15px 30px;
+}
+
+.popup .result .img {
+	flex: 1 1 50%;
+	max-width: 300px;
+	padding: 0px 15px
+}
+
+button {
+	display: inline-block;
+	padding: 15px 30px;
+	font-size: 18px;
+	font-weight: 700;
+	margin:5px;
+	
+
+	background: #4484C4;
+	color: #FFF;
+	border-radius: 8px;
+	border: none;
+	outline: none;
+	appearance: none;
+	cursor: pointer;
+
+	transition: 0.4s ease-out;
+}
+
+button:hover {
+	background: #223343;
 }

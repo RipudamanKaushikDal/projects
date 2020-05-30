@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
-import GalleryView from './components/GalleryView';
+import GalleryView from './components/GalleryView'
+import Popup from  './components/Popup'
 
 
 function App() {
@@ -20,25 +21,30 @@ function App() {
       sources.push(apiurl+"photos/"+path))
 
       setState(
-        () => {return{imgsrc:sources}}
+        (prevState) => {return{...prevState,imgsrc:sources}}
       )
     });
   },[])
 
-  const search = (imagepath) => {
-    let path=imagepath.target.src.split('photos/')
-
+  const search = (e) => { 
+    let path=e.target.src.split('photos/')
+    
     axios.post(apiurl+"search",{path:path[1]})
-      .then(({data}) =>{
-        let results=data.searchpaths
+      .then(({data}) => {
+        let results=data.searchpaths;
+        let photos=[];
+        results.map((path) =>
+        photos.push(apiurl+"photos/"+path))
 
-        setState(
-          () => {return{selected:results}}
-        )
-      }) 
-      console.log(state.selected)
+        setState((prevState) => {return{...prevState,selected:photos}})
+      })     
   } 
 
+  const closePopup = () => {
+    setState(prevState => {
+      return { ...prevState, selected: [] }
+    });
+  }
 
   return (
     <div>
@@ -47,6 +53,7 @@ function App() {
       </header>
       <main>
         <GalleryView sources={state.imgsrc} search={search} />
+        {(state.selected.length >= 1) ? <Popup srchresult={state.selected} close={closePopup}/> :false }
       </main>
     </div>
   )

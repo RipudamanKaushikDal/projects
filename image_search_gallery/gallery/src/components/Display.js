@@ -1,14 +1,13 @@
 import React from "react"
 
-function Display({images, search}){
+function Display({sources, search}){
     return(
-        <div className='display' onClick={search}>
+        <div className='display' onClick={search} >
             {
-                images.map((pic) =>
-                    (<img src={pic} alt="image"  />)
-                )
+                sources.map((pic) =>
+                (<img src={pic} alt="dataset"  />)
+            )
             }
-
         </div>
     )
 }

@@ -26,13 +26,13 @@ def get_images(path_name):
     return send_file(path_name)
 
 @app.route("/search",methods=['GET','POST'])
-@cross_origin()
 def searchimage():
     if request.method == 'POST':
         query=request.get_json()
         prog=search_images(query['path'])
 
     response=jsonify({'searchpaths':prog})
+    response.headers.add('Access-Control-Allow-Origin', '*')
     print(response)
     return response
 
