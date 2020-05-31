@@ -36,6 +36,10 @@ def searchimage():
     print(response)
     return response
 
+imageindex=index
+imageindex()
+
 if __name__ == '__main__':
     app.run(debug=True)
-    index()
+    imageindex=index
+    imageindex()

@@ -6,13 +6,17 @@ import Popup from  './components/Popup'
 
 function App() {
 
+  //initialize state 
   const[state,setState]= useState({
     imgsrc:[],
     selected:[]
   })
 
+  //define our base url
   const apiurl="http://172.17.0.2:5000/";
 
+
+  // load images as soon as the components mount by making api call to the server
   useEffect(() => {
     axios(apiurl+"photos").then(({data}) => {
       let paths = data.imgpaths;
@@ -20,15 +24,19 @@ function App() {
       paths.map((path) =>
       sources.push(apiurl+"photos/"+path))
 
+      // save the returned data in state.imgsrc
       setState(
         (prevState) => {return{...prevState,imgsrc:sources}}
       )
     });
-  },[])
+  },[]) // run the effect only once 
 
-  const search = (e) => { 
-    let path=e.target.src.split('photos/')
+
+  //handle searches onClick
+  const search = (event) => { 
+    let path=event.target.src.split('photos/')
     
+    //post the img source to server search api and handle returned data
     axios.post(apiurl+"search",{path:path[1]})
       .then(({data}) => {
         let results=data.searchpaths;
@@ -36,16 +44,19 @@ function App() {
         results.map((path) =>
         photos.push(apiurl+"photos/"+path))
 
+        //save search results in state.selected 
         setState((prevState) => {return{...prevState,selected:photos}})
       })     
   } 
 
+  // define a method to close to  search popup
   const closePopup = () => {
     setState(prevState => {
       return { ...prevState, selected: [] }
     });
   }
 
+  //render view components and conditionally render popup
   return (
     <div>
       <header>

@@ -44,13 +44,7 @@ def index():
 	f.write(pickle.dumps(hashes))
 	f.close()
 
-#check if files already exist
-path=os.getcwd()
-files=os.listdir(path)
-for i in files:
-	if "hashes.pickle" and "tree.pickle" not in i:
-		index()
-print("All done!")
+
 	
 	
 

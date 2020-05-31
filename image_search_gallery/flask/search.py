@@ -23,18 +23,21 @@ def search_images(querypath):
 	# perform the search
 	print("[INFO] performing search...")
 	start = time.time()
-	results = tree.get_all_in_range(queryHash, 11)
+	results = tree.get_all_in_range(queryHash, 18)
 	results = sorted(results)
 	end = time.time()
 	print("[INFO] search took {} seconds".format(end - start))
 
+	resultpaths=[]
+
 	# loop over the results
 	for (d, h) in results:
 		# grab all image paths in our dataset with the same hash
-		resultPaths = hashes.get(h, [])
+		results = hashes.get(h, [])
 		print("[INFO] {} total image(s) with d: {}, h: {}".format(
-			len(resultPaths), d, h))
-	print (resultPaths)
-	return (resultPaths)
+			len(resultpaths), d, h))
+		resultpaths.append(results[0])
+	print (resultpaths)
+	return (resultpaths)
 		
 

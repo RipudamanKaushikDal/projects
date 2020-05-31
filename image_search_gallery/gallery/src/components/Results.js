@@ -5,7 +5,7 @@ function Results({srchresult}){
         <div className='results'>
             {
                 srchresult.map((source) =>
-                    (<img src={source} />)
+                    (<img src={source} alt='search results' />)
 
                 )
             }
