@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {NavLink, withRouter} from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,16 +16,17 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
-import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
-import EmojiPeopleRoundedIcon from '@material-ui/icons/EmojiPeopleRounded';
-import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
+import Routes from '../Routes';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  link:{
+    textDecoration: 'none',
+    color:theme.palette.text.primary
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -84,11 +86,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const drawerElements = [['Resume',<DescriptionRoundedIcon/>],['Projects',<AccountTreeRoundedIcon />],['About Me',<EmojiPeopleRoundedIcon />],['Contacts',<ContactMailRoundedIcon />]];
+ // const drawerElements = [['Resume',<DescriptionRoundedIcon/>],['Projects',<AccountTreeRoundedIcon />],['About Me',<EmojiPeopleRoundedIcon />],['Contacts',<ContactMailRoundedIcon />]];
+
+ const activeRoute = (routeName) => {
+  return props.location.pathname === routeName ? true : false;
+}
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -144,14 +150,18 @@ export default function NavBar() {
         </div>
         <Divider />
         <List>
-          {drawerElements.map((element) => (
-            <ListItem button >
-              <ListItemIcon>{element[1]}</ListItemIcon>
-              <ListItemText primary={element[0]} />
+          {Routes.map((element) => (
+           <NavLink to={element.path} className={classes.link}>
+            <ListItem button onClick={activeRoute(element.path)} >
+              <ListItemIcon>{element.listicon}</ListItemIcon>
+              <ListItemText primary={element.sidebarName} />
             </ListItem>
+           </NavLink>
           ))}
         </List>
       </Drawer>
       </div>
   )
 }
+
+export default withRouter(NavBar)
