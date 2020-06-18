@@ -2,7 +2,12 @@ import React from 'react';
 
 function Homepage(){
     return(
-        <h1>Home</h1>
+        <div className="homepage">
+            <div className='description'>
+              <h1>Full Stack Developer</h1>
+            </div>
+
+        </div>
     )
 }
 

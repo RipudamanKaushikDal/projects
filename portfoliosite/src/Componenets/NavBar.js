@@ -18,7 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Routes from '../Routes';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +27,17 @@ const useStyles = makeStyles((theme) => ({
   link:{
     textDecoration: 'none',
     color:theme.palette.text.primary
+  },  
+  navbar:{
+    background: '#c31432',  /* fallback for old browsers */
+    // eslint-disable-next-line
+    background: '-webkit-linear-gradient(to bottom, #240b36, #c31432)',
+    // eslint-disable-next-line
+    background: 'linear-gradient(to bottom, #240b36, #c31432)' 
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    opacity:0.8,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -51,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
+    opacity:0.4,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
@@ -104,12 +113,14 @@ function NavBar(props) {
     setOpen(false);
   };
 
+  
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={clsx(classes.appBar, classes.navbar,{
           [classes.appBarShift]: open,
         })}
       >
@@ -137,7 +148,7 @@ function NavBar(props) {
           [classes.drawerClose]: !open,
         })}
         classes={{
-          paper: clsx({
+          paper:clsx({
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
           }),
@@ -152,8 +163,8 @@ function NavBar(props) {
         <List>
           {Routes.map((element) => (
            <NavLink to={element.path} className={classes.link}>
-            <ListItem button onClick={activeRoute(element.path)} >
-              <ListItemIcon>{element.listicon}</ListItemIcon>
+            <ListItem button onClick={activeRoute(element.path)}  >
+              <ListItemIcon >{element.listicon}</ListItemIcon>
               <ListItemText primary={element.sidebarName} />
             </ListItem>
            </NavLink>
