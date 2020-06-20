@@ -11,21 +11,45 @@
   background-position: 'center';
   background-size:'cover';
   background-repeat: 'no-repeat';
+
 }
 
 .description {
-  height: 100%;
+  height:auto;
   display: flex;
   flex-direction: column;
-  justify-content: 'flex-start';
   align-items: center;
-  padding: 40px;
+  padding:10px;
 }
 
 .description h1{
-  color: white;
-  opacity: 0.7;
-  font-size: 48px;
+  color: whitesmoke;
+  opacity: 0.8;
+  font-size: 80px;
   margin-top: 50px;
   font-weight: 500;
 }
+
+.description footer{
+  padding-top: 310px;
+  color:whitesmoke;
+  font-size: 48px;
+  font-weight: 500;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  animation-name:glow;
+
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fc2647, 0 0 40px #fc2647, 0 0 50px #fc2647, 0 0 60px #fc2647, 0 0 70px #fc2647;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff0055, 0 0 40px #ff0055, 0 0 50px #ff0055, 0 0 60px #ff0055, 0 0 70px #ff0055, 0 0 80px #ff0055;
+  }
+}
+
+

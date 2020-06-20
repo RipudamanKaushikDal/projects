@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
   link:{
     textDecoration: 'none',
     color:theme.palette.text.primary
-  },  
+  }, 
+  drawerPaper:{
+    backgroundColor:"silver",
+  },
   navbar:{
     background: '#c31432',  /* fallback for old browsers */
     // eslint-disable-next-line
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    opacity:0.4,
+    opacity:0.6,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
@@ -148,7 +151,7 @@ function NavBar(props) {
           [classes.drawerClose]: !open,
         })}
         classes={{
-          paper:clsx({
+          paper:clsx(classes.drawerPaper,{
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
           }),
