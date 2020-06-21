@@ -18,7 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Routes from '../Routes';
 
-const drawerWidth = 220;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     color:theme.palette.text.primary
   }, 
   drawerPaper:{
-    backgroundColor:"silver",
+    backgroundColor:"#f2f2f2",
   },
   navbar:{
     background: '#c31432',  /* fallback for old browsers */
