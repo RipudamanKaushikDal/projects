@@ -53,7 +53,7 @@
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
   animation-name:glow;
-  animation-delay: 5s;
+  animation-delay: 3s;
 
 }
 
@@ -65,6 +65,25 @@
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #ff0055, 0 0 40px #ff0055, 0 0 50px #ff0055, 0 0 60px #ff0055, 0 0 70px #ff0055, 0 0 80px #ff0055;
   }
+}
+
+.bio{
+  height: auto;
+  margin:70px 0px 0px 180px;
+  padding:0px 30px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.bio h1{
+  color:whitesmoke;
+  opacity:0.8;
+  font-size: 48px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-bottom: white dotted;
+  
+
 }
 
 
