@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -9,22 +9,24 @@ import CardActions  from '@material-ui/core/CardActions';
 import card1 from '../images/project card1.png'
 import card2 from '../images/project card2.png'
 import card3 from '../images/project card3.jpg'
+import {
+  Route,
+  Link as RouterLink ,
+  useRouteMatch
+} from "react-router-dom";
+import ProjectDetails from './ProjectDetails';
 
-/*const [state,setState]=useState({
-    index:null
-})
-
-const chooseView=(number) => {
-    setState=() => {return{index:number}}
-
-}*/
 
 function Projects(){
+  let {path,url} = useRouteMatch();
+
+
+
     return(
-        <>
+      <>
          <div className="projects">
             <Card style={{maxWidth:300,marginTop:15}}  >
-                  <CardActionArea>
+                  <CardActionArea component={RouterLink} to={`${url}/search_gallery`}>
                       <CardMedia 
                         style={{height:200}}
                         image={card1}
@@ -48,9 +50,9 @@ function Projects(){
                     </Button>
                   </CardActions>
             </Card>
-
+  
             <Card style={{maxWidth:300,marginTop:15,marginLeft:60}}  >
-                  <CardActionArea>
+                  <CardActionArea component={RouterLink} to={`${url}/attendance_app`}>
                       <CardMedia 
                         style={{height:200}}
                         image={card2}
@@ -74,9 +76,10 @@ function Projects(){
                     </Button>
                   </CardActions>
             </Card>
+        
 
             <Card style={{maxWidth:300,marginTop:30}}  >
-                  <CardActionArea>
+                  <CardActionArea component={RouterLink} to={`${url}/watch_drone`}>
                       <CardMedia 
                         style={{height:200}}
                         image={card3}
@@ -101,13 +104,22 @@ function Projects(){
                   </CardActions>
             </Card>
 
-
           </div>
+
+          
+          <Route path={`${path}/:appName`} component={ProjectDetails} />
+
+
+        
+
+        </>
+
+         
             
 
 
         
-        </>
+        
     )
 }
 
