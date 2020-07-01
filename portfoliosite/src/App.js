@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import NavBar from'./Componenets/NavBar';
+import Navigation from'./Componenets/NavBar';
 import Routes from './Routes';
 import {Switch,Route} from 'react-router-dom'; 
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 
@@ -13,7 +14,8 @@ import {Switch,Route} from 'react-router-dom';
 function App() {
   return (
     <div className="container">
-    <NavBar />
+    <CssBaseline />
+    <Navigation />
     <Switch>
       <Route exact path={Routes[0].path} component={Routes[0].component} />
       <Route path={Routes[1].path} component={Routes[1].component} />
