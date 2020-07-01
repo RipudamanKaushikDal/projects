@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
+import Grow from '@material-ui/core/Grow';
 import Typography from '@material-ui/core/Typography';
      
 const useStyle = makeStyles((theme) => ({
@@ -12,16 +12,16 @@ const useStyle = makeStyles((theme) => ({
         fontSize: 70,
         fontFamily: '-apple-system, BlinkMacSystemFont',
         fontWeight: 500,
-        paddingTop:theme.spacing(7)
+        paddingTop:theme.spacing(4)
     },
 
     footer:{
         fontSize:48,
         color:'whitesmoke',
         fontWeight:500,
-        marginBottom:theme.spacing(2),
-        marginTop:theme.spacing(45),
+        paddingTop:theme.spacing(42),
     }
+
 
 }));
 
@@ -30,15 +30,25 @@ function Homepage(){
     const classes= useStyle();
 
     return(   
-        
-            <Grid className="description" direction='coloumn' justify='space-between' alignItems='center'>
-                <Typography  variant= 'h1' className={classes.header}>Hi, <span style={{fontSize:'48px'}}>I AM RIPUDAMAN</span> </Typography>              
+        <Box className='description'>
 
-                <Typography  variant='h2' className={classes.footer}>
-                    Full-Stack Developer
-                </Typography>
+            <Grow in='true' timeout={4000} >
+                <Typography  variant= 'h1' className={classes.header}>Hi, <span style={{fontSize:'48px'}}>I AM RIPUDAMAN</span> </Typography>              
+            </Grow>
+                    
+
+            <Typography  variant='h2' className={classes.footer}>
+                Full-Stack Developer
+            </Typography>
+
+        </Box>
+            
+                    
+
+               
                 
-            </Grid>
+                
+            
 
               
             

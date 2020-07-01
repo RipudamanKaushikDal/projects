@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import { makeStyles, useTheme} from '@material-ui/core/styles';
-import {NavLink, withRouter} from 'react-router-dom';
+import { makeStyles} from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import DoubleArrowRoundedIcon from '@material-ui/icons/DoubleArrowRounded';
-import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -95,7 +94,7 @@ function Navigation(){
         <Divider />
         <List>
           {Routes.map((element,key) => (
-            <ListItem button key={key}>
+            <ListItem button key={key} component={Link} to={element.path}>
               <ListItemIcon>{element.listicon}</ListItemIcon>
               <ListItemText> {element.sidebarName} </ListItemText>
             </ListItem>

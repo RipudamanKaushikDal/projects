@@ -1,13 +1,15 @@
-
+.container{
+  background: url(./images/background.jpg) no-repeat center;
+  background-size: cover;
+}
 
 .description{
+  padding:10px auto;
   height:100vh;
   text-align: center;
-  background-image: url(./images/homepage.jpg);
-  background-position: 'center';
+  background: url(./images/homepage.jpg) no-repeat center center fixed;
   background-size:'cover';
-  background-repeat: 'no-repeat';
-
+ 
 }
 
 
