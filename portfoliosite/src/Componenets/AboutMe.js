@@ -8,12 +8,27 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography'
 import me from '../images/me.jpg';
+import { Box,Grid } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
+    bio:{
+        margin:'3rem auto',
+        maxWidth:340
+    },
+    skillHeading:{
+        color:'whitesmoke',
+        margin:'0 2rem 0 2rem',
+        opacity:0.8,
+        fontSize: 48,
+        fontWeight:500,
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+        borderBottom: 'white dotted',
+    },
     skills: {
         display: 'flex',
         justifyContent: 'center',
+        paddingBottom:theme.spacing(2),
         flexWrap: 'wrap',
         '& > *': {
             margin: theme.spacing(0.5),
@@ -25,8 +40,10 @@ function AboutMe(){
 
     const classes = useStyles();
     return(
-        <div className="bio">
-            <Card style={{maxWidth:360,marginTop:15,alignSelf:'center'}}>
+      <Box style={{height:'100%'}} >
+        <Grid container justify='center'>
+            <Grid item xs={12} sm={8} md={6}>
+                <Card className={classes.bio}>
                   <CardActionArea>
                       <CardMedia 
                         style={{height:300}}
@@ -43,8 +60,10 @@ function AboutMe(){
                         </Typography>
                       </CardContent>
                   </CardActionArea>
-            </Card>
-            <h1>Skills</h1>
+                </Card>
+            </Grid>
+        </Grid>
+            <Typography variant='h1' className={classes.skillHeading}>Skills</Typography>
             
             <div className={classes.skills}>
                 <Chip
@@ -118,7 +137,7 @@ function AboutMe(){
 
 
         
-        </div>
+        </Box>
     )
 }
 

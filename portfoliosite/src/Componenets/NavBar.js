@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   sideBar:{
     width: 200,
     height:'100%', 
-    background:'silver',
+    background:'#909090',
     opacity:0.9
   },
 
@@ -36,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
     margin:'0.5rem auto',
     width: theme.spacing(13),
     height: theme.spacing(13)
+
+  },
+
+  listItem:{
+    '&:hover': {
+      textDecoration: 'none',
+      backgroundColor: 'tomato',
+      },
 
   },
 
@@ -94,7 +102,7 @@ function Navigation(){
         <Divider />
         <List>
           {Routes.map((element,key) => (
-            <ListItem button key={key} component={Link} to={element.path}>
+            <ListItem button key={key} component={Link} to={element.path} className={classes.listItem}>
               <ListItemIcon>{element.listicon}</ListItemIcon>
               <ListItemText> {element.sidebarName} </ListItemText>
             </ListItem>

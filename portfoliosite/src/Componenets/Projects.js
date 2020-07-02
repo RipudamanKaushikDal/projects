@@ -1,4 +1,6 @@
 import React from 'react';
+import {Box,Grid} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -17,15 +19,28 @@ import {
 import ProjectDetails from './ProjectDetails';
 
 
+const useStyles=makeStyles({
+  projects:{
+    height:'100%'
+  },
+
+  cards:{
+    maxWidth:300,
+    margin:'3rem auto',
+  }
+})
+
+
 function Projects(){
   let {path,url} = useRouteMatch();
 
-
+  const classes=useStyles();
 
     return(
-      <>
-         <div className="projects">
-            <Card style={{maxWidth:300,marginTop:15}}  >
+      <Box component='div' className={classes.projects} >
+        <Grid container justify='center' >
+         <Grid item xs={12} sm={8} md={6} >
+            <Card className={classes.cards}  >
                   <CardActionArea component={RouterLink} to={`${url}/search_gallery`}>
                       <CardMedia 
                         style={{height:200}}
@@ -50,8 +65,10 @@ function Projects(){
                     </Button>
                   </CardActions>
             </Card>
+            </Grid>
   
-            <Card style={{maxWidth:300,marginTop:15,marginLeft:60}}  >
+          <Grid item xs={12} sm={8} md={6} >
+            <Card className={classes.cards}  >
                   <CardActionArea component={RouterLink} to={`${url}/attendance_app`}>
                       <CardMedia 
                         style={{height:200}}
@@ -76,9 +93,10 @@ function Projects(){
                     </Button>
                   </CardActions>
             </Card>
+          </Grid>
         
-
-            <Card style={{maxWidth:300,marginTop:30}}  >
+          <Grid item xs={12} sm={8} md={6} >
+            <Card className={classes.cards} >
                   <CardActionArea component={RouterLink} to={`${url}/watch_drone`}>
                       <CardMedia 
                         style={{height:200}}
@@ -104,15 +122,14 @@ function Projects(){
                   </CardActions>
             </Card>
 
-          </div>
+          </Grid>
+        </Grid>
 
           
-          <Route path={`${path}/:appName`} component={ProjectDetails} />
+        <Route path={`${path}/:appName`} component={ProjectDetails} />
 
 
-        
-
-        </>
+      </Box>
 
          
             
