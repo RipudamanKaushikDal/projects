@@ -13,9 +13,12 @@ const Inputfield=withStyles({
         '& label':{
             color:'whitesmoke'
         },
-        '& ,MuiOutlinedInput-root':{
+        '& .MuiOutlinedInput-root':{
             '& fieldset':{
                 borderColor:'white',
+            },
+            '&:hover fieldset':{
+                borderColor:'crimson',
             }
         }
 
@@ -48,7 +51,7 @@ const useStyles=makeStyles( (theme) => ({
 
 
 
-function Contacts(){
+export default function Contacts(){
 
     const classes= useStyles();
     const [state,setState] = useState ({
@@ -122,7 +125,38 @@ function Contacts(){
           return { ...prevstate, message: e.target.value };
         });
       };
+
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setState(prevstate => {
+            return { ...prevstate, success:"" };
+          });
+        
+      };
     
+    
+        let notification;
+
+        if (state.success==='true') {
+        notification=<Snackbar open='true' autoHideDuration={6000} 
+        onClose={handleClose}
+        message="Your email has been sent"
+        anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+        }} />} ;
+
+        if (state.success==='false') { 
+        notification=<Snackbar open='true' autoHideDuration={6000} 
+        onClose={handleClose}
+        message="Message not sent, an error occured"
+        anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+        }}
+        />}
 
     return(
           <Box component='div' height='100vh'>
@@ -131,15 +165,15 @@ function Contacts(){
                     <Typography variant="h2" className={classes.heading}>Contact Me</Typography>
                 </Grid>
                 <Grid  item xs={10} sm={8} md={8}>
-                    <Inputfield name="client" value={state.Name || ""}  onChange={nameChange} 
+                    <Inputfield name="client" value={state.Name || ""}  onChange={nameChange} color="secondary"
                        label="Name" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
                 </Grid>
                 <Grid  item xs={10} sm={8} md={8}>
-                    <Inputfield name="sender" value={state.email || ""}  onChange={emailChange} 
+                    <Inputfield name="sender" value={state.email || ""}  onChange={emailChange} color="secondary"
                      label="E-Mail" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
                 </Grid>
                 <Grid  item xs={10} sm={8} md={8}>
-                    <Inputfield name="message" value={state.message || ""} onChange={messageChange}
+                    <Inputfield name="message" value={state.message || ""} onChange={messageChange} color="secondary"
                      label="Message" variant='outlined' multiline rows={4} fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
                 </Grid>
                 <br />
@@ -150,23 +184,7 @@ function Contacts(){
                         Send
                     </Button>
 
-                {state.success==='true'? <Snackbar open='true' autoHideDuration={6000} message="Your email has been sent"
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-                 }} /> : 
-                 <Snackbar open='true' autoHideDuration={6000} message="Message not sent, an error occured"
-                 anchorOrigin={{
-                 vertical: 'bottom',
-                 horizontal: 'left',
-                 }}
-                 />
- 
-                }
-                
-
-                
-                
+                    {notification}              
 
                     
                 </Grid>
@@ -178,6 +196,4 @@ function Contacts(){
 
         
     )
-}
-
-export default Contacts
+    }
