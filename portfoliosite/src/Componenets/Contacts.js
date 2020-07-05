@@ -1,8 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {TextField,Button,Typography,Grid,Box} from '@material-ui/core';
 import {makeStyles,withStyles} from '@material-ui/core/styles';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import emailjs from 'emailjs-com';
+        
 const Inputfield=withStyles({
     root:{
         '& label.Mui-focused':{
@@ -20,7 +22,7 @@ const Inputfield=withStyles({
     }
 })(TextField)
 
-const useStyles=makeStyles( theme => ({
+const useStyles=makeStyles( (theme) => ({
 
     form:{
         margin:'5rem auto',
@@ -42,21 +44,130 @@ const useStyles=makeStyles( theme => ({
 
 }));
 
+
+
+
+
 function Contacts(){
 
     const classes= useStyles();
+    const [state,setState] = useState ({
+        Name:"",
+        email:"",
+        message:"",
+        success:"",
+    });
+    
+    let templateVars= {
+        name:state.Name,
+        from_email:state.email,
+        message:state.message
+    };
+
+    
+    const sendEmail=(event) => {
+        event.preventDefault();
+        console.log(state)
+        console.log(templateVars)
+        emailjs.send(
+            'gmail',
+            'ripudaman_template',
+            templateVars,
+            'user_ayV8gcoYmRslatk5VoUgj'
+        )
+        .then(() => {successMessage()}
+            
+            , (error) => {
+            errorMessage()
+        });
+        setState({
+            Name:"",
+            email:"",
+            message:""
+        })
+    };
+
+
+    const successMessage = () => {
+        setState(prevstate => {
+            return { ...prevstate, success:'true' };
+          });
+        };
+    
+        
+    
+    const errorMessage =() => {
+        setState(prevstate => {
+            return { ...prevstate, sucess:'false' };
+          });
+        };
+    
+    const nameChange = e => {
+        e.persist();
+        setState(prevstate => {
+          return { ...prevstate, Name: e.target.value };
+        });
+      };
+    
+      const emailChange = e => {
+        e.persist();
+        setState(prevstate => {
+          return { ...prevstate, email: e.target.value };
+        });
+      };
+    
+      const messageChange = e => {
+        e.persist();
+        setState(prevstate => {
+          return { ...prevstate, message: e.target.value };
+        });
+      };
+    
+
     return(
-        <Box component='div' height='100vh'>
+          <Box component='div' height='100vh'>
             <Grid container justify='center' className={classes.form} >
-                <Grid item xs={10} sm={8} md={8}>
+                <Grid  item xs={10} sm={8} md={8}>
                     <Typography variant="h2" className={classes.heading}>Contact Me</Typography>
-                    <Inputfield label="Name" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
-                    <Inputfield label="E-Mail" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
-                    <Inputfield label="Message" variant='outlined' multiline rows={4} fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
-                    <br />
-                    <Button variant="outlined" fullWidth={true} endIcon={<SendRoundedIcon />} className={classes.button}>
+                </Grid>
+                <Grid  item xs={10} sm={8} md={8}>
+                    <Inputfield name="client" value={state.Name || ""}  onChange={nameChange} 
+                       label="Name" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
+                </Grid>
+                <Grid  item xs={10} sm={8} md={8}>
+                    <Inputfield name="sender" value={state.email || ""}  onChange={emailChange} 
+                     label="E-Mail" variant='outlined' fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
+                </Grid>
+                <Grid  item xs={10} sm={8} md={8}>
+                    <Inputfield name="message" value={state.message || ""} onChange={messageChange}
+                     label="Message" variant='outlined' multiline rows={4} fullWidth={true} margin='dense' inputProps={{style:{color:'whitesmoke'}}} />
+                </Grid>
+                <br />
+                <Grid  item xs={10} sm={8} md={8}>
+
+                    <Button  variant='outlined' className={classes.button} 
+                     fullWidth={true} endIcon={<SendRoundedIcon />} onClick={sendEmail}>
                         Send
                     </Button>
+
+                {state.success==='true'? <Snackbar open='true' autoHideDuration={6000} message="Your email has been sent"
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+                 }} /> : 
+                 <Snackbar open='true' autoHideDuration={6000} message="Message not sent, an error occured"
+                 anchorOrigin={{
+                 vertical: 'bottom',
+                 horizontal: 'left',
+                 }}
+                 />
+ 
+                }
+                
+
+                
+                
+
                     
                 </Grid>
                 
@@ -64,6 +175,8 @@ function Contacts(){
             </Grid>
         
         </Box>
+
+        
     )
 }
 
