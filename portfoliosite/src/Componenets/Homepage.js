@@ -32,7 +32,7 @@ function Homepage(){
     return(   
         <Box className='description'>
 
-            <Grow in='true' timeout={4000} >
+            <Grow in='true' timeout={3000} >
                 <Typography  variant= 'h1' className={classes.header}>Hi, <span style={{fontSize:'48px'}}>I AM RIPUDAMAN</span> </Typography>              
             </Grow>
                     

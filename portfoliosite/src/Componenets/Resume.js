@@ -1,60 +1,84 @@
 import React from 'react';
-import {Grid,Typography} from '@material-ui/core';
+import {Grid,Typography,Avatar,LinearProgress} from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
 import { makeStyles } from '@material-ui/core/styles';
+import Education from './Education';
+import photo from '../images/Resumephoto.jpg';
 
 const useStyles = makeStyles((theme) => ({
 
     leftContainer:{
         margin:'1rem auto',
         height:'100%',
-        direction:'coloumn'
+        direction:'column',
+        textAlign:'center',
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
     },
-    rightContainer:{
+    useravatar:{
+        display: 'block',
         margin:'1rem auto',
+        width: theme.spacing(30),
+        height: theme.spacing(30)
+    
+      },
+    rightContainer:{
+        margin:'2rem auto',
         height:'100%',
-        background:'midnightblue',
-        color:'white'
+        background:'black',
+        color:'white',
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
     },
-    skillHeading:{
+    heading:{
         color:'whitesmoke',
-        margin:'0 2rem 0 2rem',
+        margin:' 1rem auto',
         opacity:0.8,
         fontSize: 48,
         fontWeight:500,
+        borderBottom:'dotted',
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-        borderBottom: 'white dotted',
     },
     skills: {
         justify: 'center',
-        paddingBottom:theme.spacing(2),
-        direction:'column',
+        width:'50%',
+        padding:'0.5rem 0 1rem 5rem ',
         '& > *': {
-            margin: theme.spacing(0.5),
+            margin: theme.spacing(0.7),
         },
     },
+
     
 }))
 
 
-const skills =[{label:"ReactJS",color:"secondary"},{label:"Python",color:"primary"},
-{label:"JavaScript",color:"secondary"},{label:"Html5",color:"primary"},
-{label:"CSS3",color:"secondary"},{label:"C#/.NET",color:"primary"},
-{label:"OpenCV",color:"secondary"},{label:"Docker",color:"primary"}]
+const skills =[{label:"ReactJS",color:"secondary",level:95},{label:"Python",color:"primary",level:95},
+{label:"JavaScript",color:"secondary",level:80},{label:"Html5",color:"primary",level:80},
+{label:"C#/.NET",color:"secondary",level:50},{label:"CSS3",color:"primary",level:70},
+{label:"OpenCV",color:"secondary",level:60},{label:"Docker",color:"primary",level:50}]
 
 function Resume(){
 
     const classes= useStyles();
 
     return(
-        <Grid container>
-            <Grid container className={classes.leftContainer} justify='center' xs={4} sm={4} md={4} >
+        <Grid container style={{height:'100%'}}>
+            <Grid container className={classes.leftContainer} justify='center'  direction='column' xs={8} md={4}   >
+                <Grid item >
+                    <Avatar  className={classes.useravatar} src={photo} alt='Resume pic' />
+                </Grid>
+
+                <Grid item >
+                    <Typography variant='h1' className={classes.heading}>Bio</Typography>
+                    <Typography variant='body1' style={{color:'whitesmoke'}}>
+                        A Full-Stack Developer with keen interest in programming and machine learning. Having a natural affinity towards problem solving and eagerness to learn new things motivate me to take on new challenges and roles in life.
+                    </Typography>
+                </Grid>
+
                 <Grid item>
-                <Typography variant='h1' className={classes.skillHeading}>Skills</Typography>
+                <Typography variant='h1' className={classes.heading} >Skills</Typography>
                 </Grid>
                 
-                <Grid  item className={classes.skills}>
+                <Grid  item className={classes.skills} direction='column' >
                     {skills.map((skill) => (
                          <Chip
                          variant="default"
@@ -70,8 +94,38 @@ function Resume(){
 
             </Grid>
 
-            <Grid container className={classes.rightContainer} justify='center' xs={8} sm={6} md={6} lg={4}>
-                <Typography variant="h2">Education</Typography>
+            <Grid container className={classes.rightContainer} justify='center' xs={10}  md={7} lg={4}>
+                <Grid item>
+                <Typography variant="h1" className={classes.heading}>Education</Typography>
+                </Grid> 
+                
+
+                <Education startYear="2018" endYear="2020" schoolName="Dalhousie University"
+                            schoolAchievement="1. Got Academic Scholarship in 7 out of 10 subjects"
+                            schoolgpa="2. 4.06 CGPA" />
+            
+                <Education startYear="2013" endYear="2017" schoolName="Punjabi University"
+                            schoolAchievement="1. Got A+ in the final project presentation"
+                            schoolgpa="2. 7.35 CGPA" />
+
+                <Grid item>
+                <Typography variant="h1" className={classes.heading}>Skill Evaluation</Typography>
+                </Grid>
+
+                <Grid container direction='column'>
+                    {skills.map((skill) => (
+                        <div style={{padding:'0.5rem 0.5rem 0.5rem 0.5rem'}} >
+                        <Typography variant="h5">{skill.label}</Typography>
+                        <LinearProgress
+                         variant="determinate"
+                         value={skill.level}
+                         color={skill.color}  
+                         />  
+                        </div>   
+                        )
+                    )}
+                </Grid>
+                    
 
             </Grid>
 

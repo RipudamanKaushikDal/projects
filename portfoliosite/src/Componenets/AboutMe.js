@@ -36,8 +36,10 @@ function AboutMe(){
                             Ripudaman Kaushik
                         </Typography>
                         <Typography variant="body1" color="textPrimary" component="p">
-                            I am a full-stack developer who loves to code. On a constant lookout for fresh ideas
-                            and new technologies to learn. My mantra "Eager to Start, Determined to Finish."
+                            I am a full-stack developer who loves to code. On a constant lookout for fresh ideas to pick up 
+                            and new things to learn. Space is my ideal destination, Music is where I, wander-in, to get lost and Stories are what help me navigate.
+                            A firm believer in the principle "A healthy mind inhabits a healthy body." 
+                            My mantra "Eager to Start and Determined to Finish."
                         </Typography>
                       </CardContent>
                   </CardActionArea>
