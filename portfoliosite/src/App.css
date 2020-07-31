@@ -35,10 +35,10 @@
 
 .projectdetails{
   position: fixed;
-	top:12%;
-	left:13%;
-	width: 80vw;
-	height: 85vh;
+  top:0%;
+  left:0%;
+	width: 100vw;
+	height: 100vh;
 	background: #000000;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -46,21 +46,22 @@
 
 	overflow-y: scroll;
 	transition: 0.4s ease-out;
-	-moz-box-shadow: 0 2px 10px white;
-  -webkit-box-shadow: 0 2px 10px white;
-  box-shadow: 0 2px 10px white;
+
 }
 
 .projectdetails .screenshots{
   display: flex;
-  margin: 8px 15px 15px 15px;
+  justify-content:"center";
+  
+  margin: 10px;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
 .projectdetails .screenshots img{
-  height:38%;
-  width: 100%;
+  align-self: center;
+  height:70%;
+  width:80%;
   overflow-y:hidden;
 }
 
@@ -68,5 +69,14 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: whitesmoke;
   opacity: 0.8;
+}
+
+.error {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
 }
 

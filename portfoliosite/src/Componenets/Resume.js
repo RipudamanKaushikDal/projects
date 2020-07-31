@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 const skills =[{label:"ReactJS",color:"secondary",level:95},{label:"Python",color:"primary",level:95},
 {label:"JavaScript",color:"secondary",level:80},{label:"Html5",color:"primary",level:80},
-{label:"C#/.NET",color:"secondary",level:50},{label:"CSS3",color:"primary",level:70},
+{label:"C#/.NET",color:"secondary",level:70},{label:"CSS3",color:"primary",level:70},
 {label:"OpenCV",color:"secondary",level:60},{label:"Docker",color:"primary",level:50}]
 
 function Resume(){

@@ -38,11 +38,11 @@ function BottomNav(){
         <BottomNavigation className={classes.root}>
 
 
-            <BottomNavigationAction  className={classes.icons} icon={<LinkedInIcon/>} />
+            <BottomNavigationAction  className={classes.icons} icon={<LinkedInIcon/>} href="https://www.linkedin.com/in/ripudamankaushik" target="_blank" />
 
-            <BottomNavigationAction   className={classes.icons} icon={<InstagramIcon />} />
+            <BottomNavigationAction   className={classes.icons} icon={<InstagramIcon />} href="https://www.instagram.com/ripudamankaushik/"  target="_blank"  />
 
-            <BottomNavigationAction   className={classes.icons} icon={<GitHubIcon />} />
+            <BottomNavigationAction   className={classes.icons} icon={<GitHubIcon />} href="https://github.com/RipudamanKaushikDal" target="_blank" />
 
         </BottomNavigation>
     )

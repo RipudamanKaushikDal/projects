@@ -14,7 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Routes from '../Routes';
 import { Box,Avatar } from '@material-ui/core';
-import avatar from '../images/avatar.heic';
+import avatar from '../images/avatar.jpeg';
 import BottomNav from './BottomNav';
 
 
