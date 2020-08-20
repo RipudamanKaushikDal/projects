@@ -12,7 +12,7 @@ import Homepage from './Componenets/Homepage';
 
 const Routes = [
     {
-      path: '/',
+      path: '/portfolio',
       sidebarName: 'Home',
       listicon:<HomeRoundedIcon/>,
       component: Homepage
