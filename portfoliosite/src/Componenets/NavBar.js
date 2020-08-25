@@ -103,7 +103,7 @@ function Navigation(){
         <List>
           {Routes.map((element,key) => (
             <ListItem button key={key} component={Link} to={element.path} className={classes.listItem}>
-              <ListItemIcon>{element.listicon}</ListItemIcon>
+              <ListItemIcon >{element.listicon}</ListItemIcon>
               <ListItemText> {element.sidebarName} </ListItemText>
             </ListItem>
 
