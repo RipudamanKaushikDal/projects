@@ -8,6 +8,6 @@ A job scraper which scrapes indeed and careerbeacon for job postings in Halifax,
 
 #Screenshots
 
-![Time](/Time.png)
-![Indeed Results](/Indeed.png)
-![Career Beacon Results](/CareerBeacon.png)
+![Time](Time.png)
+![Indeed Results](Indeed.png)
+![Career Beacon Results](CareerBeacon.png)
