@@ -1,0 +1,28 @@
+.details {
+  margin: 0;
+  display: flex;
+  height: 360px;
+  width: 100%;
+  background-color: #111;
+  color: white;
+}
+
+.text_details {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.text_details > p {
+  padding: 15px 15px 15px 0;
+  max-width: 50rem;
+}
+
+.trailer {
+  height: 100%;
+  width: 100%;
+  margin-left: 20px;
+  background: transparent;
+}
