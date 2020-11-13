@@ -1,0 +1,28 @@
+{
+  "customers": [
+    {
+      "id": "1",
+      "name": "Ripudaman",
+      "email": "abc@tou.com",
+      "age": 24
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "email": "123@tou.com",
+      "age": 23
+    },
+    {
+      "id": "3",
+      "name": "Sarah",
+      "email": "Whatsup@tou.com",
+      "age": 22
+    },
+    {
+      "name": "Random",
+      "age": 30,
+      "email": "random@yahoo.com",
+      "id": "N98IBTp"
+    }
+  ]
+}
