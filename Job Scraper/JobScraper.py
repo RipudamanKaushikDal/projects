@@ -15,7 +15,7 @@ class JobScraper():
         search_indeed  = searchterm.replace(" ","+")
         search_beacon  = searchterm.replace(" ","-")
         indeed_url =f"https://ca.indeed.com/jobs?q={search_indeed}&l=Halifax%2C+NS&fromage=3"
-        beacon_url = f"https://www.careerbeacon.com/en/search/{search_beacon}-jobs-in-Halifax_Nova-Scotia?filter-date=Past 3 days"
+        beacon_url = f"https://www.careerbeacon.com/en/search/{search_beacon}-jobs-in-Halifax_Nova-Scotia?filter-date=Past+3+days"
         loop = asyncio.get_event_loop()
         t0=time.time()
         responses=loop.run_until_complete(self.runscraper(indeed_url,beacon_url))

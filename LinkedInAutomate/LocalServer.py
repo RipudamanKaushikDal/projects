@@ -4,11 +4,13 @@ from flask_pymongo import PyMongo
 import configparser
 from LinkedIn import LinkedInBot
 import os
-
+import imutils
+from PIL import Image
+import io
 
 app = Flask(__name__)
 api = Api(app)
-app.config["MONGO_URI"] = "mongodb+srv://admin:password@cluster0.fap05.mongodb.net/ProjectDB?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = "mongodb+srv://admin:Gu67rlhvXJ27GSl0@cluster0.fap05.mongodb.net/ProjectDB?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
 
@@ -64,8 +66,41 @@ class CreatePost (Resource):
         return "Done!"
 
 
+class Update_Database(Resource):
+
+    def get(self):
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('update.html'), headers)
+
+    def post(self):
+        image_data = request.files.getlist("imagepath")
+        text_post = request.form.get("posttext")
+        post_title = request.form.get("title")
+        github_link = request.form.get("github")
+        linkedin_link = request.form.get("linkedin")
+
+        if image_data[0].filename != "":
+            for image in image_data:
+                mongo.save_file(image.filename, image)
+
+        if text_post != "":
+            mongo.db.Projects.find_one_and_update(
+                {"title": post_title}, {"$set": {"text": text_post}})
+
+        if github_link != "":
+            mongo.db.Projects.find_one_and_update(
+                {"title": post_title}, {"$set": {"Github": github_link}})
+
+        if linkedin_link != "":
+            mongo.db.Projects.find_one_and_update(
+                {"title": post_title}, {"$set": {"LinkedIn": linkedin_link}})
+
+        return 200
+
+
 api.add_resource(DataForm, "/")
 api.add_resource(CreatePost, "/create")
+api.add_resource(Update_Database, "/update")
 
 
 if __name__ == "__main__":
