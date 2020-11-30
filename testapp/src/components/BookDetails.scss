@@ -1,0 +1,22 @@
+@import "../App.scss";
+
+.book-details {
+  @extend %flex-display;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10;
+}
+
+.book-cover {
+  height: 400px;
+  width: 250px;
+  object-fit: contain;
+}
+
+.description {
+  @extend %flex-display;
+  width: 270px;
+  justify-content: space-between;
+  background-color: $shelf-color;
+  border-radius: 8px;
+}
