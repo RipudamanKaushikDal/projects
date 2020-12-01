@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Graphql api for test-app",
   "main": "server.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js"
@@ -11,6 +11,7 @@
   "author": "Ripudaman",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.4.0"

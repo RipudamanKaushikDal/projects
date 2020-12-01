@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLList,GraphQLString, GraphQLInt, GraphQLSchema, GraphQLEnumType} from "graphql";
+import { GraphQLObjectType, GraphQLList,GraphQLString, GraphQLInt, GraphQLSchema, GraphQLEnumType, GraphQLFloat} from "graphql";
 import {bookData} from './Data.js';
 
 
@@ -9,7 +9,7 @@ const BookType = new GraphQLObjectType({
         name:{type:GraphQLString},
         thumbnail:{type:GraphQLString},
         imageUri:{type:GraphQLString},
-        price:{type:GraphQLInt},
+        price:{type:GraphQLFloat},
         author:{type:GraphQLString},
     })
 });
