@@ -1,19 +1,34 @@
 import React from 'react';
 import "./BookDetails.scss"
-import {Book} from "../types"
+import {useQuery} from '@apollo/client';
+import { getBook } from '../ApolloClient';
 
-function BookDetails(props:Book) {
+type Proptype = {
+    id:number;
+}
 
-    const {book} = props
+function BookDetails(prop:Proptype) {
+
+    const {id} = prop;
+
+    const {loading,error,data} = useQuery(getBook,{
+        variables:{id},
+    },)
+
+    console.log(error)
+
     return (
-        <div className="book-details">
-            <img src={book.imageUri} alt="cover" className="book-cover"/>
-            <h3>{book.name}</h3>
-            <div className="description">
-                <h4>By: {book.author}</h4>
-                <h4>{`Price: $${book.price}`}</h4>
-            </div>
-        </div>
+        <>
+        {loading === true? <p>Loading ...</p>:
+            <div className="book-details">
+                <img src={data.getBook.imageUri} alt="cover" className="book-cover"/>
+                <h3>{data.getBook.name}</h3>
+                <div className="description">
+                    <h4>By: {data.getBook.author}</h4>
+                    <h4>{`Price: $${data.getBook.price}`}</h4>
+                </div>
+            </div>}
+        </>
     )
 }
 
