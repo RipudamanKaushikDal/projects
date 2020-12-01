@@ -17,6 +17,9 @@ function App() {
     setBookID(id)
   }
 
+  const addBook = () => {
+   console.log("Add Books")
+  }
 
   return (
     
@@ -28,7 +31,11 @@ function App() {
                 <img src={book.thumbnail} alt="preview" className="covers" onClick={() =>loadBook(book.id)} />
             ))}
         </div>}
-        {showBook && <BookDetails id={bookID} />}
+        {showBook ===true?<BookDetails id={bookID} />:
+          <button className="add_book" onClick={addBook} >
+            Add Book
+          </button>
+          }
         </div>
    
   );

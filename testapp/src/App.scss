@@ -16,7 +16,8 @@ $shelf-color: #caa472;
   color: $font-color;
   margin: 10;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  overflow-x: scroll;
 }
 
 .shelf {
@@ -24,9 +25,8 @@ $shelf-color: #caa472;
 
   justify-content: space-evenly;
   background-color: $shelf-color;
-  padding: 10;
+  padding: 10px;
   width: 100%;
-  height: 300;
   border-bottom: 4px solid white;
 }
 
@@ -40,4 +40,19 @@ $shelf-color: #caa472;
 
 .covers:hover {
   transform: scale(1.2);
+}
+
+.add_book {
+  background-color: darkcyan;
+  color: $font-color;
+  border-radius: 8px;
+  position: absolute;
+  top: 250px;
+  right: 20px;
+  margin: 10px;
+  width: 140px;
+  height: 40px;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }

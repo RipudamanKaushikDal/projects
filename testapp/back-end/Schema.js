@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLList,GraphQLString, GraphQLInt, GraphQLSchema, GraphQLEnumType, GraphQLFloat} from "graphql";
-import {bookData} from './Data.js';
+import { GraphQLObjectType, GraphQLString,GraphQLList,GraphQLNonNull,GraphQLInt, GraphQLSchema, GraphQLFloat} from "graphql";
+import axios from 'axios';
 
 
 const BookType = new GraphQLObjectType({
@@ -14,17 +14,8 @@ const BookType = new GraphQLObjectType({
     })
 });
 
-const PropertiesType = new GraphQLEnumType({
-    name:'Properties',
-    values:{
-        id:{value:0},
-        name:{value:1},
-        thumbnail:{value:2},
-        imageUri:{value:3},
-        price:{value:4},
-        author:{value:5},
-    }
-});
+const dataUrl = "http://localhost:5000/bookData"
+
 
 const MainQueryType = new GraphQLObjectType({
     name:'MainQuery',
@@ -35,15 +26,18 @@ const MainQueryType = new GraphQLObjectType({
                 id:{type:GraphQLInt}
             },
             resolve:(parent,args) => {
-                const bookSearch= bookData.filter(book => book.id === args.id)
-                return bookSearch[0]
+                return axios.get(dataUrl+"/"+args.id)
+                    .then(res => res.data)
             }
             
         },
 
         listBooks:{
             type:GraphQLList(BookType),
-            resolve:() => bookData,
+            resolve:() => {
+                return axios.get(dataUrl)
+                    .then(res => res.data)
+            }
         },
 
 
@@ -51,8 +45,41 @@ const MainQueryType = new GraphQLObjectType({
     }
 });
 
+
+const MutationsType = new GraphQLObjectType({
+    name:"Mutations",
+    fields:{
+        addBook:{
+          type:BookType,
+          args:{
+                id:{type:GraphQLNonNull(GraphQLInt)},
+                name:{type:GraphQLNonNull(GraphQLString)},
+                thumbnail:{type:GraphQLNonNull(GraphQLString)},
+                imageUri:{type:GraphQLNonNull(GraphQLString)},
+                price:{type:GraphQLNonNull(GraphQLFloat)},
+                author:{type:GraphQLNonNull(GraphQLString)},
+           
+          },
+          resolve: (parent,args) => {
+              return axios.post(dataUrl,{
+
+                  id:args.id,
+                  name:args.name,
+                  thumbnail:args.thumbnail,
+                  imageUri:args.imageUri,
+                  price:args.price,
+                  author:args.author,
+
+              })
+                .then(res => res.data)
+          } 
+        },
+    },
+});
+
 const Schema = new GraphQLSchema({
     query:MainQueryType,
+    mutation:MutationsType,
 });
 
 export default Schema;
