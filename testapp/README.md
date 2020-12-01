@@ -4,4 +4,4 @@ Test App for learning Sass, GraphQL, Node, Express, Typescript, Testing, Apollo 
 
 # Screenshot
 
-[!Screenshot](screenshot.gif)
+![Screenshot](screenshot.gif)
