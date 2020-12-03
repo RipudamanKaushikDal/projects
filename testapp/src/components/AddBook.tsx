@@ -1,12 +1,16 @@
 import React from 'react';
 import { useState,useContext } from 'react';
 import BookContext from '../BookContext';
-import "./AddBook.scss"
+import "./AddBook.scss";
+import {addbook} from "../ApolloClient"
+import {useMutation} from "@apollo/client"
+import { Book } from '../types';
 
 function AddBook() {
 
-    const [book, setBook] = useState({});
+    const [book, setBook] = useState({} as Book);
     const {showForm, setShowForm}  = useContext(BookContext)
+    const [addBook,{data}] = useMutation(addbook)
 
 
     const  handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +23,19 @@ function AddBook() {
 
     const submitForm = () => {
         setShowForm(!showForm)
+        addBook({
+            variables:{
+                id:Number(book.id),
+                author:book.author,
+                name:book.name,
+                thumbnail:book.thumbnail,
+                imageUri:book.imageUri,
+                price:Number(book.price)
+
+            }
+        })
+
+        console.log(data)
     }
 
     return (

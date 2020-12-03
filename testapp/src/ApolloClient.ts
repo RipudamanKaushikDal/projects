@@ -28,15 +28,24 @@ export const getBook = gql`
 `;
 
 
-export const addBook = gql`
-    mutation AddBook($book:Book){
-        addBook(book:$book) {
+export const addbook = gql`
+    mutation AddBook($id:Int!,
+        $name:String!,
+        $thumbnail:String!,
+        $imageUri:String!,
+        $author:String!,
+        $price:Float!
+        ){
+        addBook(
+            id:$id,
+            name:$name,
+            thumbnail:$thumbnail,
+            imageUri:$imageUri,
+            author:$author,
+            price:$price
+        ) {
             id
-            name
-            author
-            thumbnail
-            price
-            imageUri
+            name  
         }
     }
 `;

@@ -31,7 +31,7 @@ function App() {
         <div className="shelf" >
           {data.listBooks.map((book:Book) => ( 
               
-                <img src={book.thumbnail} alt="preview" className="covers" onClick={() =>loadBook(book.id)} />
+                <img src={book.thumbnail} alt="preview" className="covers" onClick={() =>loadBook(book.id)}  key={book.id}/>
             ))}
         </div>}
         {showBook ===true?<BookDetails id={bookID} />:
