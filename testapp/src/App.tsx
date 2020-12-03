@@ -1,15 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import './App.scss';
 import BookDetails from './components/BookDetails'
 import {Book} from './types'
 import { useQuery} from '@apollo/client'
 import { getThumbnails} from './ApolloClient';
+import BookContext from './BookContext'
+import AddBook from './components/AddBook';
 
 function App() {
 
   const [showBook, setshowBook] = useState(false)
   const [bookID, setBookID] = useState(0)
   const {loading,error,data} = useQuery(getThumbnails)
+  const [showForm,setShowForm]= useState(false)
+  
 
 
   const loadBook = (id:number) => {
@@ -17,12 +21,11 @@ function App() {
     setBookID(id)
   }
 
-  const addBook = () => {
-   console.log("Add Books")
-  }
 
   return (
     
+    <BookContext.Provider value={{showForm,setShowForm}}>
+
       <div className="app">
         {loading === true?  <p>Loading ...</p>:
         <div className="shelf" >
@@ -32,12 +35,15 @@ function App() {
             ))}
         </div>}
         {showBook ===true?<BookDetails id={bookID} />:
-          <button className="add_book" onClick={addBook} >
+          <button className="add_book" onClick={() => setShowForm(!showForm)} >
             Add Book
           </button>
           }
+          
+         {showForm && <AddBook />}
         </div>
    
+    </BookContext.Provider>
   );
 }
 

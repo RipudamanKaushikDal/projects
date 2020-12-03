@@ -1,0 +1,49 @@
+@import "../App.scss";
+
+.form_container {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  height: 400px;
+  width: 600px;
+  overflow-y: scroll;
+  color: $font-color;
+  background-color: $background-color;
+  border: 1px solid black;
+  z-index: 2;
+}
+
+.form_container::-webkit-scrollbar {
+  display: none;
+}
+
+.form {
+  @extend %flex-display;
+
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 10px;
+  align-items: center;
+}
+
+.fields {
+  width: 300px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid dodgerblue;
+  outline: none;
+  margin: 10px;
+}
+
+.submit_button {
+  align-self: flex-end;
+  margin: 5px;
+  background-color: hotpink;
+  color: $font-color;
+  width: 80px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
